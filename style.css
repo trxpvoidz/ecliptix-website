@@ -116,11 +116,13 @@ html, body {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
     background: rgba(20,20,20,0.6);
+    max-width: 95vw;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
   }
   header { margin-top: 2rem; }
   h1 { font-size: 2rem; }
   h2 { font-size: 1.2rem; }
   .subtitle { font-size: 1rem; }
-  main { padding: 1rem; max-width: 90%; margin-bottom: 1.5rem; }
   section { margin-bottom: 1rem; }
 }
