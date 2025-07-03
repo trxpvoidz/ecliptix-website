@@ -106,11 +106,13 @@ html, body {
   background-position: center center;
 }
 @media (max-width: 900px) {
-  body {
+  html, body {
+    height: 100vh !important;
     background-attachment: scroll !important;
     background-size: 100% 100% !important;
     background-repeat: no-repeat !important;
     background-position: center center !important;
+    overflow-x: hidden;
   }
   main {
     backdrop-filter: none;
