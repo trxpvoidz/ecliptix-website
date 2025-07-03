@@ -41,8 +41,14 @@ document.querySelectorAll('section').forEach(section => observer.observe(section
 
 window.onload = () => showPage('home');
 
-// Fallback check for older low-spec devices to disable effects
-if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+// Ultimate low graphics detection: reduced motion, old browsers, ?lowgraphics, low memory or CPU
+if (
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+  !('IntersectionObserver' in window) ||
+  location.search.includes("lowgraphics") ||
+  (navigator.deviceMemory && navigator.deviceMemory <= 2) ||
+  (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2)
+) {
   document.body.classList.add("reduced");
 
   const banner = document.createElement("div");

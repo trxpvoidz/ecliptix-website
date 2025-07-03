@@ -134,3 +134,20 @@ body.reduced section {
   top: 0;
   z-index: 9999;
 }
+
+/* Prepare for smooth animations */
+.page, section {
+  will-change: opacity, transform;
+}
+
+/* Fallback if browser doesn't support backdrop-filter */
+@supports not (backdrop-filter: blur(8px)) {
+  section {
+    background: rgba(0,0,0,0.7);
+  }
+}
+
+/* Extra fallback for old browsers with reduced motion */
+body.reduced section {
+  background: rgba(0,0,0,0.7);
+}
