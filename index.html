@@ -1,11 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Ecliptix Animated Site</title>
-<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<title>Ecliptix</title>
+<link href="style.css" rel="stylesheet" />
 </head>
 <body>
 <nav>
@@ -13,32 +13,54 @@
   <a onclick="showPage('about')">About Us</a>
   <a onclick="showPage('preview')">Preview</a>
 </nav>
+
 <div id="home-page" class="page">
-  <header>
-    <h1>Ecliptix</h1>
-    <p class="subtitle" id="typewriter"></p>
-  </header>
-  <main>
-    <section><h2>Our Mission</h2><p>We make well-made skin packs/capes, help new creators, and maintain a kind community with supportive staff!</p></section>
-    <section><h2>Services</h2><p>Helping people make skins, building skinpacks, and offering tools for creators.</p></section>
-    <section><h2>Our Discord Server</h2><p><a href="https://discord.gg/3x3M289anm" target="_blank">Join our Discord</a></p></section>
-    <section><h2>Our Socials</h2>
-      <p>Youtube: <a href="https://www.youtube.com/@Ecliptix_MCBE" target="_blank">Ecliptix_MCBE</a></p>
-      <p>Founder Bio: <a href="https://guns.lol/trxpvoidz" target="_blank">guns.lol/trxpvoidz</a></p>
-      <p>Main Page: <a href="https://guns.lol/Ecliptix" target="_blank">guns.lol/Ecliptix</a></p></section>
-  </main>
+  <h1>Ecliptix</h1>
+  <div class="subtitle" id="typewriter-home"></div>
+  <section><h2>Our Mission</h2><p>We make well-made skin packs/capes, help new creators, and maintain a kind community with supportive staff!</p></section>
 </div>
+
 <div id="about-page" class="page" style="display:none;">
-  <header><h1>About Us</h1><p class="subtitle" id="typewriter-about"></p></header>
-  <main><section><h2>Our Story</h2><p>We started Ecliptix to create a supportive space for skin creators. From humble beginnings, we’ve grown into a thriving community.</p></section>
-  <section><h2>Our Values</h2><p>Creativity, support, and quality. We strive to uplift artists and bring their visions to Minecraft.</p></section>
-  <section><h2>The Founders</h2><p>The founders are DqrkEgirl and Trxp Voidz.</p></section></main>
+  <h1>About Us</h1>
+  <div class="subtitle" id="typewriter-about"></div>
+  <section><h2>Our Story</h2><p>We started Ecliptix to create a supportive space for skin creators. From humble beginnings, we’ve grown into a thriving community.</p></section>
 </div>
+
 <div id="preview-page" class="page" style="display:none;">
-  <header><h1>Preview</h1><p class="subtitle" id="typewriter-preview"></p></header>
-  <main><section><h2>Coming Soon</h2><p>New themed skin packs, unique capes, and tools for creators are on the horizon. Stay tuned!</p></section></main>
+  <h1>Preview</h1>
+  <div class="subtitle" id="typewriter-preview"></div>
+  <section><h2>Coming Soon</h2><p>New themed skin packs, unique capes, and tools for creators are on the horizon. Stay tuned!</p></section>
 </div>
+
 <footer>&copy; 2025 Ecliptix. All rights reserved.</footer>
-<script src="script.js"></script>
+
+<script>
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(el => el.style.display = 'none');
+  document.getElementById(page + '-page').style.display = 'block';
+  typewriters[page]();
+}
+
+const typewriters = {
+  home: () => typeIt('typewriter-home', "A community for skin creators!"),
+  about: () => typeIt('typewriter-about', "Supporting artists since 2025"),
+  preview: () => typeIt('typewriter-preview', "Stay tuned for updates!")
+};
+
+function typeIt(id, text) {
+  const el = document.getElementById(id);
+  el.innerHTML = '';
+  let i = 0;
+  (function type() {
+    if (i < text.length) {
+      el.innerHTML += text.charAt(i);
+      i++;
+      setTimeout(type, 50);
+    }
+  })();
+}
+
+window.onload = () => typewriters['home']();
+</script>
 </body>
 </html>
