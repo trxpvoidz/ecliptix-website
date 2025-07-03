@@ -1,24 +1,42 @@
 
-function showPage(page) {
-  document.querySelectorAll('.page').forEach(el => el.style.display = 'none');
-  document.getElementById(page + '-page').style.display = 'block';
-  typewriters[page]();
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(page => {
+    page.classList.remove('show');
+    page.style.display = 'none';
+  });
+  const page = document.getElementById(pageId + '-page');
+  page.style.display = 'block';
+  setTimeout(() => page.classList.add('show'), 10);
+  runTypewriter(pageId);
 }
-const typewriters = {
-  home: () => typeIt('typewriter', "A community for skin creators!"),
-  about: () => typeIt('typewriter-about', "Supporting artists since 2025"),
-  preview: () => typeIt('typewriter-preview', "Stay tuned for updates!")
-};
-function typeIt(id, text) {
-  const el = document.getElementById(id);
-  el.innerHTML = '';
+
+function runTypewriter(page) {
+  const texts = {
+    home: "A community for skin creators!",
+    about: "Supporting artists since 2025",
+    preview: "Stay tuned for updates!"
+  };
+  const el = document.getElementById('typewriter' + (page==='home'?'':'-'+page));
+  if (!el) return;
+  el.innerHTML = "";
   let i = 0;
   (function type() {
-    if (i < text.length) {
-      el.innerHTML += text.charAt(i);
+    if (i < texts[page].length) {
+      el.innerHTML += texts[page].charAt(i);
       i++;
-      setTimeout(type, 50);
+      setTimeout(type, 60);
     }
   })();
 }
-window.onload = () => typewriters['home']();
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('section').forEach(section => observer.observe(section));
+
+window.onload = () => showPage('home');

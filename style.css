@@ -2,19 +2,19 @@
 body {
   margin: 0;
   font-family: 'Raleway', sans-serif;
-  color: #ddd;
-  background: #000 url('background.png') center center / cover no-repeat fixed;
+  background: url('background.png') center center / cover no-repeat fixed;
+  color: #fff;
 }
 
 nav {
-  background: rgba(20, 20, 30, 0.8);
-  padding: 1rem;
+  background: rgba(20, 20, 20, 0.8);
+  padding: 1em;
   text-align: center;
 }
 
 nav a {
-  margin: 0 15px;
   color: #ccc;
+  margin: 0 15px;
   text-decoration: none;
   font-weight: bold;
   transition: color 0.3s;
@@ -25,60 +25,68 @@ nav a:hover {
 }
 
 .page {
-  max-width: 900px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: rgba(0,0,0,0.5);
-  border-radius: 12px;
-  backdrop-filter: blur(8px);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease, transform 1s ease;
 }
 
-h1, h2 {
-  background: linear-gradient(90deg, #fff, #999, #111);
+.page.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+section {
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 800px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+h1.glow, h2 {
+  background: linear-gradient(-45deg, #ffffff, #aaaaaa, #111111, #aaaaaa, #ffffff);
+  background-size: 400% 400%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: gradientShift 8s ease infinite, glowPulse 3s ease-in-out infinite;
   text-align: center;
-  text-shadow: 0 0 10px rgba(255,255,255,0.5);
-}
-
-h1 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-h2 {
-  font-size: 2rem;
-  margin-top: 2rem;
 }
 
 .subtitle {
   text-align: center;
   font-size: 1.25rem;
-  margin-bottom: 1.5rem;
+  margin: 1rem 0;
 }
 
 footer {
   text-align: center;
   padding: 2rem;
   color: #888;
-  font-size: 0.9rem;
 }
 
-a {
-  color: #b4a8ff;
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-a:hover {
-  color: #fff;
+@keyframes glowPulse {
+  0%,100% { text-shadow: 0 0 10px rgba(255,255,255,0.6), 0 0 20px rgba(255,255,255,0.4); }
+  50% { text-shadow: 0 0 20px rgba(255,255,255,0.8), 0 0 30px rgba(255,255,255,0.6); }
 }
 
-@media (max-width: 600px) {
-  nav a {
-    display: block;
-    margin: 10px 0;
-  }
-  .page {
-    margin: 1rem;
-    padding: 1rem;
-  }
+@media (max-width:768px){
+  nav a { display: block; margin: 10px 0; }
+  section { margin: 1rem; padding: 1.5rem; }
+  h1.glow { font-size: 2.5em; }
+  h2 { font-size: 1.8em; }
 }
