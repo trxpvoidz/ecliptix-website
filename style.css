@@ -3,7 +3,7 @@ body {
   font-family: 'Raleway', sans-serif;
   background: url('eB8YD.png') no-repeat center center;
   background-attachment: fixed;
-  background-size: 150% auto;
+  background-size: cover;
   color: #c9d1d9;
   display: flex;
   flex-direction: column;
@@ -107,8 +107,10 @@ html, body {
 }
 @media (max-width: 900px) {
   body {
-    background-attachment: local !important;
-    background-size: 150% auto !important;
+    background-attachment: scroll !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
   }
   main {
     backdrop-filter: none;
