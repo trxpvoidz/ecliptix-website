@@ -1,15 +1,22 @@
 
 body {
   font-family: 'Raleway', sans-serif;
-  background: url('eB8YD.png') no-repeat center center;
-  background-attachment: fixed;
-  background-size: cover;
   color: #c9d1d9;
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow-x: hidden;
   cursor: url('nG4nH.png'), auto;
+  position: relative;
+  min-height: 100vh;
+}
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: url('eB8YD.png') no-repeat center center;
+  background-size: cover;
+  z-index: -1;
 }
 nav {
   width: 100%;
@@ -65,7 +72,6 @@ h2 { font-size: 1.5rem; }
   min-height: 1.5rem;
   margin-bottom: 1rem;
   z-index:5;
-  color: #c9d1d9;
 }
 main {
   max-width: 90%;
@@ -99,20 +105,10 @@ footer {
   position: relative;
   z-index:5;
 }
-html, body {
-  min-height: 100%;
-  height: auto;
-  background-repeat: no-repeat;
-  background-position: center center;
-}
 @media (max-width: 900px) {
-  html, body {
-    height: 100vh !important;
-    background-attachment: scroll !important;
+  body::before {
     background-size: 100% 100% !important;
-    background-repeat: no-repeat !important;
-    background-position: center center !important;
-    overflow-x: hidden;
+    background-attachment: scroll;
   }
   main {
     backdrop-filter: none;
