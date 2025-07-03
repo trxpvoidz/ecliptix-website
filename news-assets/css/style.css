@@ -3,7 +3,7 @@ html, body {
 }
 
 body {
-  background: url("background.png") no-repeat center center fixed;
+  background: url("news-assets/css/background.png") no-repeat center center fixed;
   background-size: cover;
   color: #fff;
   font-family: 'Raleway', sans-serif;
