@@ -121,7 +121,7 @@ html, body {
 
 @media (max-width: 600px) {
   body {
-    background-attachment: scroll !important;
+    background-attachment: local !important;
     background-size: cover !important;
   }
 }
