@@ -6,119 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Ecliptix Animated Site</title>
 <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
-<style>
-body {
-  font-family: 'Raleway', sans-serif;
-  background: url('https://images.guns.lol/eB8YD.png') no-repeat center center fixed;
-  background-size: cover;
-  color: #c9d1d9;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow-x: hidden;
-  cursor: url('https://images.guns.lol/nG4nH.png'), auto;
-}
-nav {
-  width: 100%;
-  background: rgba(22,27,34,0.85);
-  padding: 1rem;
-  text-align: center;
-  position: relative;
-  z-index: 5;
-}
-nav a {
-  color: #c9d1d9;
-  text-decoration: none;
-  margin: 0 1rem;
-  font-weight: bold;
-  cursor: pointer;
-}
-nav a:hover { text-decoration: underline; }
-header {
-  margin-top: 3rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  text-align: center;
-  z-index: 5;
-}
-h1, h2 {
-  background: linear-gradient(270deg,#ffffff,#c0c0c0,#7e7e7e,#383838);
-  background-size: 600% 600%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradientShift 8s ease infinite;
-}
-h1 {
-  font-size: 3rem;
-  font-weight: 700;
-  text-shadow: 0 0 10px rgba(212,212,212,0.6),
-               0 0 20px rgba(124,124,124,0.4),
-               0 0 30px rgba(0,0,0,0.3);
-}
-h2 {
-  font-size: 1.5rem;
-}
-@keyframes gradientShift {
-  0%{background-position:0% 50%;}
- 50%{background-position:100% 50%;}
-100%{background-position:0% 50%;}
-}
-.subtitle {
-  font-size: 1.2rem;
-  text-align: center;
-  width: 100%;
-  max-width: 800px;
-  min-height: 1.5rem;
-  margin-bottom: 1rem;
-  z-index:5;
-  color: #c9d1d9;
-}
-main {
-  max-width: 800px;
-  width: 100%;
-  padding: 2rem;
-  background: rgba(51,51,51,0.4);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 12px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-  margin-bottom: 3rem;
-  position: relative;
-  z-index: 5;
-}
-section {
-  margin-bottom: 2rem;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.6s ease;
-}
-section.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-footer {
-  margin-top: 3rem;
-  font-size: 0.9rem;
-  color: #fff;
-  text-align: center;
-  width: 100%;
-  position: relative;
-  z-index:5;
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 <nav>
   <a onclick="showPage('home')">Home</a>
   <a onclick="showPage('about')">About Us</a>
   <a onclick="showPage('preview')">Preview</a>
 </nav>
-
 <div id="home-page" class="page">
   <header>
     <h1>Ecliptix</h1>
@@ -134,67 +29,17 @@ footer {
       <p>Main Page: <a href="https://guns.lol/Ecliptix" target="_blank">guns.lol/Ecliptix</a></p></section>
   </main>
 </div>
-
 <div id="about-page" class="page" style="display:none;">
-  <header>
-    <h1>About Us</h1>
-    <p class="subtitle" id="typewriter-about"></p>
-  </header>
-  <main>
-    <section><h2>Our Story</h2><p>We started Ecliptix to create a supportive space for skin creators. From humble beginnings, we’ve grown into a thriving community.</p></section>
-    <section><h2>Our Values</h2><p>Creativity, support, and quality. We strive to uplift artists and bring their visions to Minecraft.</p></section>
-    <section><h2>The Founders</h2><p>The founders are DqrkEgirl and Trxp Voidz.</p></section>
-  </main>
+  <header><h1>About Us</h1><p class="subtitle" id="typewriter-about"></p></header>
+  <main><section><h2>Our Story</h2><p>We started Ecliptix to create a supportive space for skin creators. From humble beginnings, we’ve grown into a thriving community.</p></section>
+  <section><h2>Our Values</h2><p>Creativity, support, and quality. We strive to uplift artists and bring their visions to Minecraft.</p></section>
+  <section><h2>The Founders</h2><p>The founders are DqrkEgirl and Trxp Voidz.</p></section></main>
 </div>
-
 <div id="preview-page" class="page" style="display:none;">
-  <header>
-    <h1>Preview</h1>
-    <p class="subtitle" id="typewriter-preview"></p>
-  </header>
-  <main>
-    <section><h2>Coming Soon</h2><p>New themed skin packs, unique capes, and tools for creators are on the horizon. Stay tuned!</p></section>
-  </main>
+  <header><h1>Preview</h1><p class="subtitle" id="typewriter-preview"></p></header>
+  <main><section><h2>Coming Soon</h2><p>New themed skin packs, unique capes, and tools for creators are on the horizon. Stay tuned!</p></section></main>
 </div>
-
 <footer>&copy; 2025 Ecliptix. All rights reserved.</footer>
-
-<script>
-function typeWriterText(elementId, text) {
-  let i = 0;
-  const el = document.getElementById(elementId);
-  el.innerHTML = "";
-  function type() {
-    if (i < text.length) {
-      el.innerHTML += text.charAt(i);
-      i++;
-      setTimeout(type, 75);
-    }
-  }
-  type();
-}
-
-function resetFadeIn() {
-  document.querySelectorAll('section').forEach(section => {
-    section.classList.remove('visible');
-    setTimeout(() => section.classList.add('visible'), 100);
-  });
-}
-
-function showPage(pageId) {
-  document.querySelectorAll('.page').forEach(page => page.style.display = 'none');
-  document.getElementById(pageId + '-page').style.display = 'block';
-  window.scrollTo(0,0);
-  resetFadeIn();
-
-  if (pageId === 'home') typeWriterText('typewriter', "A community for skin creators!");
-  if (pageId === 'about') typeWriterText('typewriter-about', "Learn more about who we are and what drives us.");
-  if (pageId === 'preview') typeWriterText('typewriter-preview', "Sneak peeks of upcoming content!");
-}
-
-typeWriterText('typewriter', "A community for skin creators!");
-resetFadeIn();
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
