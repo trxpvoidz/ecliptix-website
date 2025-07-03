@@ -109,3 +109,19 @@ footer {
   main { padding: 1rem; max-width: 90%; margin-bottom: 1.5rem; }
   section { margin-bottom: 1rem; }
 }
+
+
+html, body {
+  min-height: 100%;
+  height: auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+@media (max-width: 600px) {
+  body {
+    background-attachment: scroll !important;
+    background-size: cover !important;
+  }
+}
