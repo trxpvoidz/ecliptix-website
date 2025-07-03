@@ -1,7 +1,8 @@
 
 body {
   font-family: 'Raleway', sans-serif;
-  background: url('eB8YD.png') no-repeat center center fixed;
+  background: url('eB8YD.png') no-repeat center center;
+  background-attachment: fixed;
   background-size: cover;
   color: #c9d1d9;
   display: flex;
@@ -100,6 +101,7 @@ footer {
   z-index:5;
 }
 @media (max-width: 600px) {
+  body { background-attachment: scroll; }
   h1 { font-size: 2rem; }
   h2 { font-size: 1.2rem; }
   .subtitle { font-size: 1rem; }
