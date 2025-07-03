@@ -28,7 +28,7 @@ nav a {
 }
 nav a:hover { text-decoration: underline; }
 header {
-  margin-top: 3rem;
+  margin-top: 2.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -77,12 +77,12 @@ main {
   border: 1px solid rgba(255,255,255,0.2);
   border-radius: 12px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   position: relative;
   z-index: 5;
 }
 section {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   opacity: 0;
   transform: translateY(30px);
   transition: all 0.6s ease;
@@ -92,7 +92,7 @@ section.visible {
   transform: translateY(0);
 }
 footer {
-  margin-top: 3rem;
+  margin-top: 2rem;
   font-size: 0.9rem;
   color: #fff;
   text-align: center;
@@ -102,8 +102,10 @@ footer {
 }
 @media (max-width: 600px) {
   body { background-attachment: scroll; }
+  header { margin-top: 2rem; }
   h1 { font-size: 2rem; }
   h2 { font-size: 1.2rem; }
   .subtitle { font-size: 1rem; }
-  main { padding: 1rem; max-width: 90%; }
+  main { padding: 1rem; max-width: 90%; margin-bottom: 1.5rem; }
+  section { margin-bottom: 1rem; }
 }
