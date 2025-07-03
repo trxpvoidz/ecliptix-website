@@ -41,13 +41,11 @@ document.querySelectorAll('section').forEach(section => observer.observe(section
 
 window.onload = () => showPage('home');
 
-// Ultimate low graphics detection: reduced motion, old browsers, ?lowgraphics, low memory or CPU
+// Safe fallback: only triggers on explicit reduced motion, old browsers, or ?lowgraphics
 if (
   window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
   !('IntersectionObserver' in window) ||
-  location.search.includes("lowgraphics") ||
-  (navigator.deviceMemory && navigator.deviceMemory <= 2) ||
-  (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2)
+  location.search.includes("lowgraphics")
 ) {
   document.body.classList.add("reduced");
 
