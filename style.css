@@ -108,7 +108,7 @@ html, body {
 @media (max-width: 900px) {
   body {
     background-attachment: scroll !important;
-    background-size: cover !important;
+    background-size: 100% 100% !important;
     background-repeat: no-repeat !important;
     background-position: center center !important;
   }
