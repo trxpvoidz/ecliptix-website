@@ -1,10 +1,10 @@
-
 function showPage(pageId) {
   document.querySelectorAll('.page').forEach(page => {
     page.classList.remove('show');
     page.style.display = 'none';
   });
   const page = document.getElementById(pageId + '-page');
+  if (!page) return;  // safely exit if page not found
   page.style.display = 'block';
   setTimeout(() => page.classList.add('show'), 10);
   runTypewriter(pageId);
@@ -17,7 +17,7 @@ function runTypewriter(page) {
     preview: "Stay tuned for updates!"
   };
   const el = document.getElementById('typewriter' + (page==='home'?'':'-'+page));
-  if (!el) return;
+  if (!el || !texts[page]) return;
   el.innerHTML = "";
   let i = 0;
   (function type() {
@@ -29,6 +29,7 @@ function runTypewriter(page) {
   })();
 }
 
+// Fade sections on scroll
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -41,7 +42,7 @@ document.querySelectorAll('section').forEach(section => observer.observe(section
 
 window.onload = () => showPage('home');
 
-// Safe fallback: only triggers on explicit reduced motion, old browsers, or ?lowgraphics
+// Safe fallback for low graphics
 if (
   window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
   !('IntersectionObserver' in window) ||
