@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ecliptix News</title>
+<link rel="stylesheet" href="news-assets/css/style.css" />
+</head>
+<body>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="news.html">News</a>
+</nav>
+
+<div class="page show">
+  <header class="centered">
+    <h1 class="glow gradient-text">Ecliptix News</h1>
+    <p class="subtitle">Latest updates from our community</p>
+  </header>
+  <main id="news-container">
+    <p>Loading news...</p>
+  </main>
+</div>
+
+<script src="news-assets/js/news.js"></script><script>
+function loadNews() {
+  fetch('news.json')
+    .then(response => response.json())
+    .then(data => {
+      const container = document.getElementById('news-container');
+      container.innerHTML = "";
+      data.slice().reverse().forEach(item => {
+        const section = document.createElement('section');
+        section.innerHTML = `<h2>${item.title}</h2><p><strong>${item.date}</strong></p><p>${item.message}</p>`;
+        container.appendChild(section);
+        observer.observe(section);
+      });
+    })
+    .catch(() => {
+      document.getElementById('news-container').innerHTML = "<p>Couldn't load news.</p>";
+    });
+}
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+window.onload = () => loadNews();
+</script>
+</body>
+</html>
