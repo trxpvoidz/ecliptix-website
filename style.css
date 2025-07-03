@@ -3,7 +3,7 @@ body {
   font-family: 'Raleway', sans-serif;
   background: url('eB8YD.png') no-repeat center center;
   background-attachment: fixed;
-  background-size: cover;
+  background-size: 150% auto;
   color: #c9d1d9;
   display: flex;
   flex-direction: column;
@@ -68,9 +68,8 @@ h2 { font-size: 1.5rem; }
   color: #c9d1d9;
 }
 main {
-  max-width: 800px;
-  width: 100%;
-  padding: 2rem;
+  max-width: 90%;
+  padding: 1.5rem;
   background: rgba(51,51,51,0.4);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -103,14 +102,13 @@ footer {
 html, body {
   min-height: 100%;
   height: auto;
-  background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
 }
 @media (max-width: 900px) {
   body {
     background-attachment: local !important;
-    background-size: cover !important;
+    background-size: 150% auto !important;
   }
   main {
     backdrop-filter: none;
