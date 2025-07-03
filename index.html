@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Ecliptix</title>
+<title>Ecliptix Animated Site</title>
 <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -15,17 +15,31 @@
   <a onclick="showPage('preview')">Preview</a>
 </nav>
 <div id="home-page" class="page">
-  <header>
-    <h1>Ecliptix</h1>
-    <p class="subtitle">A community for skin creators!</p>
+  <header class="centered">
+    <h1 class="glow gradient-text">Ecliptix</h1>
+    <p class="subtitle" id="typewriter"></p>
   </header>
   <main>
     <section><h2>Our Mission</h2><p>We make well-made skin packs/capes, help new creators, and maintain a kind community with supportive staff!</p></section>
     <section><h2>Services</h2><p>Helping people make skins, building skinpacks, and offering tools for creators.</p></section>
-    <section><h2>Our Discord Server</h2><p><a href="#">Join our Discord</a></p></section>
-    <section><h2>Our Socials</h2><p>Youtube: Ecliptix_MCBE</p></section>
+    <section><h2>Our Discord Server</h2><p><a href="https://discord.gg/3x3M289anm" target="_blank">Join our Discord</a></p></section>
+    <section><h2>Our Socials</h2>
+      <p><a href="https://www.youtube.com/@Ecliptix_MCBE" target="_blank">Youtube: Ecliptix_MCBE</a></p>
+      <p><a href="https://guns.lol/trxpvoidz" target="_blank">Founder Bio: guns.lol/trxpvoidz</a></p>
+      <p><a href="https://guns.lol/Ecliptix" target="_blank">Main Page: guns.lol/Ecliptix</a></p>
+    </section>
   </main>
 </div>
+<div id="about-page" class="page" style="display:none;">
+  <header class="centered"><h1 class="glow gradient-text">About Us</h1><p class="subtitle" id="typewriter-about"></p></header>
+  <main><section><h2>Our Story</h2><p>We started Ecliptix to create a supportive space for skin creators. From humble beginnings, we’ve grown into a thriving community.</p></section>
+  <section><h2>Our Values</h2><p>Creativity, support, and quality. We strive to uplift artists and bring their visions to Minecraft.</p></section></main>
+</div>
+<div id="preview-page" class="page" style="display:none;">
+  <header class="centered"><h1 class="glow gradient-text">Preview</h1><p class="subtitle" id="typewriter-preview"></p></header>
+  <main><section><h2>Coming Soon</h2><p>New themed skin packs, unique capes, and tools for creators are on the horizon. Stay tuned!</p></section></main>
+</div>
 <footer>&copy; 2025 Ecliptix. All rights reserved.</footer>
+<script src="script.js"></script>
 </body>
 </html>
