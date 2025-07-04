@@ -1,0 +1,71 @@
+
+body {
+  background: url("../background.png") no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+  font-family: 'Raleway', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  background-color: rgba(20, 20, 20, 0.8);
+  padding: 1em;
+}
+
+nav a {
+  color: #ccc;
+  margin: 0 1em;
+  text-decoration: none;
+  font-size: 1.2em;
+}
+nav a:hover { color: #fff; }
+
+h1, h2 {
+  background: linear-gradient(-45deg, #ffffff, #aaaaaa, #111111, #aaaaaa, #ffffff);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 8s ease infinite, glowPulse 3s ease-in-out infinite;
+}
+
+.page, section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease, transform 1s ease;
+  max-width: 800px;
+  margin: 2rem auto;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  padding: 2rem;
+}
+
+.page.show, section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+img, iframe {
+  display: block;
+  max-width: 100%;
+  margin-top: 1rem;
+  border-radius: 8px;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes glowPulse {
+  0%,100% { text-shadow: 0 0 10px rgba(255,255,255,0.6), 0 0 20px rgba(255,255,255,0.4); }
+  50% { text-shadow: 0 0 20px rgba(255,255,255,0.8), 0 0 30px rgba(255,255,255,0.6); }
+}
+
+@media (max-width:768px){
+  nav a { font-size: 1em; margin: 0.5em; }
+  .subtitle { font-size: 1.2em; }
+}
