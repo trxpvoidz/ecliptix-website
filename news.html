@@ -1,1 +1,68 @@
-<!DOCTYPE html><html><head><title>News</title></head><body>News Page</body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ecliptix News</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="news-assets/style.css">
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="news.html">News</a>
+  </nav>
+  <main>
+    <header class="centered">
+      <h1 class="glow gradient-text">Ecliptix News</h1>
+      <p class="subtitle" id="typewriter-news"></p>
+    </header>
+    <div id="news-container"></div>
+  </main>
+  <footer>&copy; 2025 Ecliptix. All rights reserved.</footer>
+
+  <script>
+    // Typewriter effect just for News page
+    const text = "Latest updates from our community";
+    const el = document.getElementById('typewriter-news');
+    let i = 0;
+    (function type() {
+      if (i < text.length) {
+        el.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(type, 60);
+      }
+    })();
+
+    // IntersectionObserver for fade animations
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll('section').forEach(section => observer.observe(section));
+    });
+
+    // Reduced motion fallback
+    if (
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      !('IntersectionObserver' in window) ||
+      location.search.includes("lowgraphics")
+    ) {
+      document.body.classList.add("reduced");
+
+      const banner = document.createElement("div");
+      banner.className = "performance-banner";
+      banner.innerText = "⚡ Low graphics mode activated to improve performance.";
+      document.body.prepend(banner);
+    }
+  </script>
+
+  <script src="news-assets/script.js"></script>
+  <script src="news-assets/news.js"></script>
+</body>
+</html>
