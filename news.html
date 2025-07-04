@@ -2,45 +2,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ecliptix News</title>
-<link rel="stylesheet" href="news-assets/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ecliptix News</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="news-assets/style.css">
 </head>
 <body>
-<nav>
-  <a href="index.html">Home</a>
-</nav>
-<div class="page show">
-  <header class="centered">
-    <h1 class="glow gradient-text">Ecliptix News</h1>
-    <p class="subtitle">Latest updates from our community</p>
-  </header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="news.html">News</a>
+  </nav>
   <main>
-    <section class="visible">
-      <h2>Server Maintenance</h2>
-      <p><strong>2025-07-01</strong></p>
-      <p>We'll be undergoing maintenance at 3AM UTC. Expected downtime is 1 hour.</p>
-      <img src="news-assets/maintenance.png" alt="Server Maintenance">
-    </section>
-    <section class="visible">
-      <h2>New Skin Pack Released</h2>
-      <p><strong>2025-07-04</strong></p>
-      <p>We just dropped a new futuristic skin pack. Check it out on our Discord!</p>
-      <iframe width="300" height="169" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
-    </section>
+    <header class="centered">
+      <h1 class="glow gradient-text">Ecliptix News</h1>
+      <p class="subtitle">Latest updates from our community</p>
+    </header>
+    <div id="news-container"></div>
   </main>
-</div>
-<footer>&copy; 2025 Ecliptix. All rights reserved.</footer>
-<script>
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.1 });
-document.querySelectorAll('section').forEach(section => observer.observe(section));
-</script>
+  <footer>&copy; 2025 Ecliptix. All rights reserved.</footer>
+  <script src="news-assets/script.js"></script>
+  <script src="news-assets/news.js"></script>
 </body>
 </html>
