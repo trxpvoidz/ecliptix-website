@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,11 +15,53 @@
   <main>
     <header class="centered">
       <h1 class="glow gradient-text">Ecliptix News</h1>
-      <p class="subtitle">Latest updates from our community</p>
+      <p class="subtitle" id="typewriter-news"></p>
     </header>
     <div id="news-container"></div>
   </main>
   <footer>&copy; 2025 Ecliptix. All rights reserved.</footer>
+
+  <script>
+    // Typewriter effect just for News page
+    const text = "Latest updates from our community";
+    const el = document.getElementById('typewriter-news');
+    let i = 0;
+    (function type() {
+      if (i < text.length) {
+        el.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(type, 60);
+      }
+    })();
+
+    // IntersectionObserver for fade animations
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll('section').forEach(section => observer.observe(section));
+    });
+
+    // Reduced motion fallback
+    if (
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      !('IntersectionObserver' in window) ||
+      location.search.includes("lowgraphics")
+    ) {
+      document.body.classList.add("reduced");
+
+      const banner = document.createElement("div");
+      banner.className = "performance-banner";
+      banner.innerText = "⚡ Low graphics mode activated to improve performance.";
+      document.body.prepend(banner);
+    }
+  </script>
+
   <script src="news-assets/script.js"></script>
   <script src="news-assets/news.js"></script>
 </body>
