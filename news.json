@@ -1,7 +1,9 @@
 
-[{
-  "title": "Welcome to Ecliptix",
-  "date": "2025-07-01",
-  "content": "Welcome to The Ecliptix News where we are gonna announce really important announcements!!!",
-  "attachment": "news-assets/welcome.png"
-}]
+[
+  {
+    "title": "Welcome to Ecliptix",
+    "date": "2025-07-01",
+    "message": "Welcome to The Ecliptix News where we are gonna announce really important announcements!!!",
+    "image": "ecliptix_logo.png"
+  }
+]
