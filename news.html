@@ -3,233 +3,152 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ecliptix News</title>
+  <title>Ecliptix Tools</title>
   
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
   
   <style>
     /* ----- RESET & BASE ----- */
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     body {
-      margin: 0;
-      padding: 0;
-      background: #000;
-      color: #fff;
-      font-family: 'Raleway', sans-serif;
-      display: flex;
-      min-height: 100vh;
+      margin: 0; padding: 0; background: #000; color: #fff;
+      font-family: 'Raleway', sans-serif; display: flex; min-height: 100vh;
     }
-
-    #mainContent {
-      display: flex;
-      width: 100%;
-    }
+    #mainContent { display: flex; width: 100%; }
 
     /* ----- SIDEBAR ----- */
     .sidebar {
-      width: 280px;
-      padding: 28px 20px;
-      border-right: 1px solid rgba(255, 255, 255, 0.08);
-      background: #050505;
+      width: 280px; padding: 28px 20px;
+      border-right: 1px solid rgba(255,255,255,0.08); background: #050505;
     }
-
-    /* ----- LINK STACK (exactly like index) ----- */
-    .link-stack {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      text-align: left;
-    }
-
+    .link-stack { display: flex; flex-direction: column; align-items: flex-start; text-align: left; }
     .Logo {
-      width: 100px;
-      height: auto;
-      display: block;
-      margin-bottom: 28px;
+      width: 100px; height: auto; display: block; margin-bottom: 28px;
       filter: drop-shadow(0 0 12px rgba(255,255,255,0.2));
     }
-
     .link-stack a {
-      display: block;
-      background: none;
-      border: none;
-      padding: 0;
-      font-size: 1.25rem;
-      color: #fff;
-      text-decoration: none;
-      cursor: pointer;
-      position: relative;
-      transition: text-shadow 0.2s ease;
-      margin-bottom: 12px;
+      display: block; background: none; border: none; padding: 0;
+      font-size: 1.25rem; color: #fff; text-decoration: none; cursor: pointer;
+      position: relative; transition: text-shadow 0.2s ease; margin-bottom: 12px;
     }
-
     .link-stack a:hover {
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.9),
-                   0 0 18px rgba(255, 255, 255, 0.5);
+      text-shadow: 0 0 10px rgba(255,255,255,0.9), 0 0 18px rgba(255,255,255,0.5);
     }
-
     .link-stack a::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: -5px;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(90deg, #ffffff, #c0c0c0, #888888);
-      background-size: 200% 100%;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s ease;
+      content: ''; position: absolute; left: 0; bottom: -5px; width: 100%; height: 2px;
+      background: linear-gradient(90deg, #fff, #c0c0c0, #888); background-size: 200% 100%;
+      transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease;
     }
-
-    .link-stack a:hover::after {
-      transform: scaleX(1);
-    }
-
-    /* icon glow on parent hover */
+    .link-stack a:hover::after { transform: scaleX(1); }
     .link-stack a:hover .unicode-icon {
-      filter: drop-shadow(0 0 10px var(--icon-color))
-              drop-shadow(0 0 18px var(--icon-color));
-      transition: filter 0.2s ease;
-      transform: scale(1.05);
+      filter: drop-shadow(0 0 10px var(--icon-color)) drop-shadow(0 0 18px var(--icon-color));
+      transition: filter 0.2s ease; transform: scale(1.05);
     }
 
-    /* ----- MAIN PANEL (news area) ----- */
+    /* ----- MAIN PANEL ----- */
     .main-panel {
-      flex: 1;
-      padding: 30px 40px;
-      overflow-y: auto;
-      max-height: 100vh;
+      flex: 1; padding: 30px 40px; overflow-y: auto; max-height: 100vh;
       background: radial-gradient(circle at 20% 30%, #0e0e0e, #000);
     }
 
-    /* ----- NEWS SPECIFIC STYLES (white/gray theme) ----- */
-    .centered {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-    .glow {
-      text-shadow: 0 0 15px rgba(255, 255, 255, 0.7), 0 0 30px rgba(211, 211, 211, 0.4);
-    }
+    /* ----- TOOLS STYLES ----- */
+    .centered { text-align: center; margin-bottom: 2rem; }
+    .glow { text-shadow: 0 0 15px rgba(255,255,255,0.7), 0 0 30px rgba(211,211,211,0.4); }
     .gradient-text {
-      background: linear-gradient(135deg, #ffffff, #b0b0b0);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      font-weight: 700;
-      letter-spacing: 2px;
+      background: linear-gradient(135deg, #fff, #b0b0b0);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      font-weight: 700; letter-spacing: 2px;
     }
     .subtitle {
-      font-size: 1.2rem;
-      opacity: 0.9;
-      min-height: 2em;
-      color: #ddd;
+      font-size: 1.2rem; opacity: 0.9; min-height: 2em; color: #ddd;
       text-shadow: 0 0 8px rgba(255,255,255,0.3);
     }
-    #news-container {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
+    
+    #tools-container {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px; margin-top: 20px;
     }
-    /* news article cards */
-    .news-card {
-      background: #111;
-      padding: 20px;
-      border-radius: 12px;
-      border-left: 4px solid #888; /* gray accent */
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-      transition: transform 0.2s, opacity 0.5s;
-      opacity: 0;
-      transform: translateY(10px);
+    
+    .tool-card {
+      background: #111; border-radius: 12px; border-left: 4px solid #888;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5); transition: transform 0.2s, opacity 0.5s;
+      opacity: 0; transform: translateY(10px); overflow: hidden;
+      display: flex; flex-direction: column; padding: 20px; text-align: center;
     }
-    .news-card.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .tool-card.visible { opacity: 1; transform: translateY(0); }
+    
+    .tool-icon {
+      width: 80px; height: 80px; margin: 0 auto 16px; display: flex;
+      align-items: center; justify-content: center; background: #1a1a1a;
+      border-radius: 16px; padding: 12px;
     }
-    .news-card h3 {
-      margin-top: 0;
-      color: #fff;
-      font-weight: 600;
+    .tool-icon img {
+      max-width: 100%; max-height: 100%; object-fit: contain;
+      filter: drop-shadow(0 0 6px rgba(255,255,255,0.2));
+    }
+    .tool-name {
+      margin: 0 0 8px; color: #fff; font-weight: 600; font-size: 1.2rem;
       text-shadow: 0 0 6px rgba(255,255,255,0.3);
     }
-    .news-card .date {
-      color: #aaa;
-      font-size: 0.9rem;
-      margin-bottom: 10px;
+    .tool-credit {
+      color: #aaa; font-size: 0.9rem; margin: 4px 0 12px;
+      border-bottom: 1px solid #333; padding-bottom: 12px;
     }
-    .news-card p {
-      line-height: 1.5;
-      color: #ddd;
+    .tool-credit::before { content: "by "; opacity: 0.7; }
+    
+    /* Platform buttons container */
+    .platform-buttons {
+      display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 4px;
     }
+    .platform-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #2a2a2a; color: #fff; text-decoration: none;
+      padding: 6px 12px; border-radius: 20px; font-size: 0.85rem;
+      font-weight: 500; transition: all 0.2s; border: 1px solid #444;
+    }
+    .platform-btn:hover {
+      background: #3a3a3a; box-shadow: 0 0 10px rgba(255,255,255,0.2);
+      border-color: #888; transform: translateY(-1px);
+    }
+    .platform-btn svg {
+      width: 16px; height: 16px; fill: currentColor;
+    }
+    
     footer {
-      margin-top: 40px;
-      text-align: center;
-      opacity: 0.6;
-      font-size: 0.9rem;
-      border-top: 1px solid #333;
-      padding-top: 20px;
-      color: #aaa;
+      margin-top: 40px; text-align: center; opacity: 0.6; font-size: 0.9rem;
+      border-top: 1px solid #333; padding-top: 20px; color: #aaa;
     }
 
-    /* performance banner */
+    /* performance banner & reduced motion */
     .performance-banner {
-      background: #222;
-      color: #ffd966;
-      padding: 8px 16px;
-      text-align: center;
-      font-size: 0.9rem;
-      border-bottom: 1px solid #444;
+      background: #222; color: #ffd966; padding: 8px 16px; text-align: center;
+      font-size: 0.9rem; border-bottom: 1px solid #444;
     }
-
-    /* reduced motion */
-    body.reduced .glow,
-    body.reduced .link-stack a:hover,
-    body.reduced .news-card h3 {
-      text-shadow: none;
-    }
-    body.reduced .news-card {
-      opacity: 1;
-      transform: none;
-      transition: none;
-    }
+    body.reduced .glow, body.reduced .link-stack a:hover,
+    body.reduced .tool-card h3 { text-shadow: none; }
+    body.reduced .tool-card { opacity: 1; transform: none; transition: none; }
 
     /* scrollbar */
-    .main-panel::-webkit-scrollbar {
-      width: 8px;
-    }
-    .main-panel::-webkit-scrollbar-track {
-      background: #111;
-    }
-    .main-panel::-webkit-scrollbar-thumb {
-      background: #555;
-      border-radius: 4px;
-    }
+    .main-panel::-webkit-scrollbar { width: 8px; }
+    .main-panel::-webkit-scrollbar-track { background: #111; }
+    .main-panel::-webkit-scrollbar-thumb { background: #555; border-radius: 4px; }
 
-    /* unicode icon base */
+    /* unicode icon */
     .unicode-icon {
-      display: inline-block;
-      width: 1.2em;
-      height: 1.2em;
-      vertical-align: middle;
+      display: inline-block; width: 1.2em; height: 1.2em; vertical-align: middle;
       --icon-color: currentColor;
     }
-    .unicode-icon svg {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
+    .unicode-icon svg { display: block; width: 100%; height: 100%; }
+
     #oneko {
       background-image: url('https://raw.githubusercontent.com/trxpvoidz/Oneko-Custom/refs/heads/main/Untitled248_20260330213042_2.gif') !important;
     }
-    
   </style>
 </head>
 <body>
   <div id="mainContent">
-    <!-- SIDEBAR -->
+    <!-- SIDEBAR (same as always) -->
     <div class="sidebar">
       <div class="link-stack">
         <img class="Logo" src="https://images-ext-1.discordapp.net/external/84fbWfiyqiXx4Ugxax_gWztPXURFRclpAADhwfAUXJo/%3Fsize%3D4096/https/cdn.discordapp.com/icons/1199902285296320582/1c76804b7752220d85459e5c9bc69b95.png" alt="Ecliptix Logo">
@@ -243,309 +162,95 @@
       </div>
     </div>
 
-    <!-- RIGHT PANEL: NEWS -->
+    <!-- MAIN PANEL: TOOLS -->
     <div class="main-panel">
       <main>
         <header class="centered">
-          <h1 class="glow gradient-text">📰 Ecliptix News</h1>
-          <p class="subtitle" id="typewriter-news"></p>
+          <h1 class="glow gradient-text">🛠️ Tools</h1>
+          <p class="subtitle" id="typewriter-tools"></p>
         </header>
-        <div id="news-container"></div>
+        <div id="tools-container"></div>
       </main>
       <footer>© 2025 Ecliptix. All rights reserved.</footer>
     </div>
   </div>
 
-
-
-  
   <script>
-
-(function oneko() {
-  const isReducedMotion =
-    window.matchMedia(`(prefers-reduced-motion: reduce)`) === true ||
-    window.matchMedia(`(prefers-reduced-motion: reduce)`).matches === true;
-
-  if (isReducedMotion) return;
-
-  const nekoEl = document.createElement('div');
-  let persistPosition = true;
-
-  let nekoPosX = 32;
-  let nekoPosY = 32;
-
-  let mousePosX = 0;
-  let mousePosY = 0;
-
-  let frameCount = 0;
-  let idleTime = 0;
-  let idleAnimation = null;
-  let idleAnimationFrame = 0;
-
-  const nekoSpeed = 10;
-  const spriteSets = {
-    idle: [[-3, -3]],
-    alert: [[-7, -3]],
-    scratchSelf: [
-      [-5, 0],
-      [-6, 0],
-      [-7, 0],
-    ],
-    scratchWallN: [
-      [0, 0],
-      [0, -1],
-    ],
-    scratchWallS: [
-      [-7, -1],
-      [-6, -2],
-    ],
-    scratchWallE: [
-      [-2, -2],
-      [-2, -3],
-    ],
-    scratchWallW: [
-      [-4, 0],
-      [-4, -1],
-    ],
-    tired: [[-3, -2]],
-    sleeping: [
-      [-2, 0],
-      [-2, -1],
-    ],
-    N: [
-      [-1, -2],
-      [-1, -3],
-    ],
-    NE: [
-      [0, -2],
-      [0, -3],
-    ],
-    E: [
-      [-3, 0],
-      [-3, -1],
-    ],
-    SE: [
-      [-5, -1],
-      [-5, -2],
-    ],
-    S: [
-      [-6, -3],
-      [-7, -2],
-    ],
-    SW: [
-      [-5, -3],
-      [-6, -1],
-    ],
-    W: [
-      [-4, -2],
-      [-4, -3],
-    ],
-    NW: [
-      [-1, 0],
-      [-1, -1],
-    ],
-  };
-
-  function init() {
-    let nekoFile = './oneko.gif';
-    const curScript = document.currentScript;
-    if (curScript && curScript.dataset.cat) {
-      nekoFile = curScript.dataset.cat;
-    }
-    if (curScript && curScript.dataset.persistPosition) {
-      if (curScript.dataset.persistPosition === '') {
-        persistPosition = true;
-      } else {
-        persistPosition = JSON.parse(
-          curScript.dataset.persistPosition.toLowerCase(),
-        );
-      }
-    }
-
-    if (persistPosition) {
-      let storedNeko = JSON.parse(window.localStorage.getItem('oneko'));
-      if (storedNeko !== null) {
-        nekoPosX = storedNeko.nekoPosX;
-        nekoPosY = storedNeko.nekoPosY;
-        mousePosX = storedNeko.mousePosX;
-        mousePosY = storedNeko.mousePosY;
-        frameCount = storedNeko.frameCount;
-        idleTime = storedNeko.idleTime;
-        idleAnimation = storedNeko.idleAnimation;
-        idleAnimationFrame = storedNeko.idleAnimationFrame;
-        nekoEl.style.backgroundPosition = storedNeko.bgPos;
-      }
-    }
-
-    nekoEl.id = 'oneko';
-    nekoEl.ariaHidden = true;
-    nekoEl.style.width = '32px';
-    nekoEl.style.height = '32px';
-    nekoEl.style.position = 'fixed';
-    nekoEl.style.pointerEvents = 'none';
-    nekoEl.style.imageRendering = 'pixelated';
-    nekoEl.style.left = `${nekoPosX - 16}px`;
-    nekoEl.style.top = `${nekoPosY - 16}px`;
-    nekoEl.style.zIndex = 2147483647;
-
-    nekoEl.style.backgroundImage = `url(${nekoFile})`;
-
-    document.body.appendChild(nekoEl);
-
-    document.addEventListener('mousemove', function (event) {
-      mousePosX = event.clientX;
-      mousePosY = event.clientY;
-    });
-
-    if (persistPosition) {
-      window.addEventListener('beforeunload', function (event) {
-        window.localStorage.setItem(
-          'oneko',
-          JSON.stringify({
-            nekoPosX: nekoPosX,
-            nekoPosY: nekoPosY,
-            mousePosX: mousePosX,
-            mousePosY: mousePosY,
-            frameCount: frameCount,
-            idleTime: idleTime,
-            idleAnimation: idleAnimation,
-            idleAnimationFrame: idleAnimationFrame,
-            bgPos: nekoEl.style.backgroundPosition,
-          }),
-        );
-      });
-    }
-
-    window.requestAnimationFrame(onAnimationFrame);
-  }
-
-  let lastFrameTimestamp;
-
-  function onAnimationFrame(timestamp) {
-    // Stops execution if the neko element is removed from DOM
-    if (!nekoEl.isConnected) {
-      return;
-    }
-    if (!lastFrameTimestamp) {
-      lastFrameTimestamp = timestamp;
-    }
-    if (timestamp - lastFrameTimestamp > 100) {
-      lastFrameTimestamp = timestamp;
-      frame();
-    }
-    window.requestAnimationFrame(onAnimationFrame);
-  }
-
-  function setSprite(name, frame) {
-    const sprite = spriteSets[name][frame % spriteSets[name].length];
-    nekoEl.style.backgroundPosition = `${sprite[0] * 32}px ${sprite[1] * 32}px`;
-  }
-
-  function resetIdleAnimation() {
-    idleAnimation = null;
-    idleAnimationFrame = 0;
-  }
-
-  function idle() {
-    idleTime += 1;
-
-    // every ~ 20 seconds
-    if (
-      idleTime > 10 &&
-      Math.floor(Math.random() * 200) == 0 &&
-      idleAnimation == null
-    ) {
-      let avalibleIdleAnimations = ['sleeping', 'scratchSelf'];
-      if (nekoPosX < 32) {
-        avalibleIdleAnimations.push('scratchWallW');
-      }
-      if (nekoPosY < 32) {
-        avalibleIdleAnimations.push('scratchWallN');
-      }
-      if (nekoPosX > window.innerWidth - 32) {
-        avalibleIdleAnimations.push('scratchWallE');
-      }
-      if (nekoPosY > window.innerHeight - 32) {
-        avalibleIdleAnimations.push('scratchWallS');
-      }
-      idleAnimation =
-        avalibleIdleAnimations[
-          Math.floor(Math.random() * avalibleIdleAnimations.length)
-        ];
-    }
-
-    switch (idleAnimation) {
-      case 'sleeping':
-        if (idleAnimationFrame < 8) {
-          setSprite('tired', 0);
-          break;
+    // ========== ONECO CAT (unchanged) ==========
+    (function oneko() {
+      const isReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (isReduced) return;
+      const nekoEl = document.createElement('div');
+      let persist = true, nekoX = 32, nekoY = 32, mouseX = 0, mouseY = 0;
+      let frameCount = 0, idleTime = 0, idleAnim = null, idleFrame = 0;
+      const speed = 10;
+      const sets = {
+        idle: [[-3,-3]], alert: [[-7,-3]], scratchSelf: [[-5,0],[-6,0],[-7,0]],
+        scratchWallN: [[0,0],[0,-1]], scratchWallS: [[-7,-1],[-6,-2]],
+        scratchWallE: [[-2,-2],[-2,-3]], scratchWallW: [[-4,0],[-4,-1]],
+        tired: [[-3,-2]], sleeping: [[-2,0],[-2,-1]],
+        N:[[-1,-2],[-1,-3]], NE:[[0,-2],[0,-3]], E:[[-3,0],[-3,-1]],
+        SE:[[-5,-1],[-5,-2]], S:[[-6,-3],[-7,-2]], SW:[[-5,-3],[-6,-1]],
+        W:[[-4,-2],[-4,-3]], NW:[[-1,0],[-1,-1]]
+      };
+      function init() {
+        let file = './oneko.gif';
+        if (persist) {
+          let s = JSON.parse(localStorage.getItem('oneko'));
+          if (s) { nekoX=s.nekoPosX; nekoY=s.nekoPosY; mouseX=s.mousePosX; mouseY=s.mousePosY; frameCount=s.frameCount; idleTime=s.idleTime; idleAnim=s.idleAnimation; idleFrame=s.idleAnimationFrame; }
         }
-        setSprite('sleeping', Math.floor(idleAnimationFrame / 4));
-        if (idleAnimationFrame > 192) {
-          resetIdleAnimation();
+        nekoEl.id='oneko'; nekoEl.ariaHidden=true;
+        nekoEl.style.cssText='width:32px;height:32px;position:fixed;pointer-events:none;image-rendering:pixelated;z-index:2147483647;';
+        nekoEl.style.left=nekoX-16+'px'; nekoEl.style.top=nekoY-16+'px';
+        nekoEl.style.backgroundImage=`url(${file})`;
+        document.body.appendChild(nekoEl);
+        document.addEventListener('mousemove',e=>{mouseX=e.clientX;mouseY=e.clientY;});
+        window.addEventListener('beforeunload',()=>localStorage.setItem('oneko',JSON.stringify({nekoPosX:nekoX,nekoPosY:nekoY,mousePosX:mouseX,mousePosY:mouseY,frameCount,idleTime,idleAnimation:idleAnim,idleAnimationFrame:idleFrame,bgPos:nekoEl.style.backgroundPosition})));
+        requestAnimationFrame(onFrame);
+      }
+      let lastTs;
+      function onFrame(ts) {
+        if(!nekoEl.isConnected)return;
+        if(!lastTs)lastTs=ts;
+        if(ts-lastTs>100){lastTs=ts;frame();}
+        requestAnimationFrame(onFrame);
+      }
+      function setSprite(n,f){let s=sets[n][f%sets[n].length];nekoEl.style.backgroundPosition=s[0]*32+'px '+s[1]*32+'px';}
+      function resetIdle(){idleAnim=null;idleFrame=0;}
+      function idle(){
+        idleTime++;
+        if(idleTime>10&&Math.random()<0.005&&idleAnim==null){
+          let a=['sleeping','scratchSelf'];
+          if(nekoX<32)a.push('scratchWallW');if(nekoY<32)a.push('scratchWallN');
+          if(nekoX>innerWidth-32)a.push('scratchWallE');if(nekoY>innerHeight-32)a.push('scratchWallS');
+          idleAnim=a[Math.floor(Math.random()*a.length)];
         }
-        break;
-      case 'scratchWallN':
-      case 'scratchWallS':
-      case 'scratchWallE':
-      case 'scratchWallW':
-      case 'scratchSelf':
-        setSprite(idleAnimation, idleAnimationFrame);
-        if (idleAnimationFrame > 9) {
-          resetIdleAnimation();
+        switch(idleAnim){
+          case'sleeping':if(idleFrame<8)setSprite('tired',0);else setSprite('sleeping',Math.floor(idleFrame/4));if(idleFrame>192)resetIdle();break;
+          case'scratchWallN':case'scratchWallS':case'scratchWallE':case'scratchWallW':case'scratchSelf':setSprite(idleAnim,idleFrame);if(idleFrame>9)resetIdle();break;
+          default:setSprite('idle',0);
         }
-        break;
-      default:
-        setSprite('idle', 0);
-        return;
-    }
-    idleAnimationFrame += 1;
-  }
+        idleFrame++;
+      }
+      function frame(){
+        frameCount++;
+        let dx=nekoX-mouseX,dy=nekoY-mouseY,dist=Math.hypot(dx,dy);
+        if(dist<speed||dist<48){idle();return;}
+        idleAnim=null;idleFrame=0;
+        if(idleTime>1){setSprite('alert',0);idleTime=Math.min(idleTime,7)-1;return;}
+        let d='';
+        d+=dy/dist>0.5?'N':''; d+=dy/dist<-0.5?'S':'';
+        d+=dx/dist>0.5?'W':''; d+=dx/dist<-0.5?'E':'';
+        setSprite(d,frameCount);
+        nekoX-=(dx/dist)*speed; nekoY-=(dy/dist)*speed;
+        nekoX=Math.min(Math.max(16,nekoX),innerWidth-16);
+        nekoY=Math.min(Math.max(16,nekoY),innerHeight-16);
+        nekoEl.style.left=nekoX-16+'px'; nekoEl.style.top=nekoY-16+'px';
+      }
+      init();
+    })();
 
-  function frame() {
-    frameCount += 1;
-    const diffX = nekoPosX - mousePosX;
-    const diffY = nekoPosY - mousePosY;
-    const distance = Math.sqrt(diffX ** 2 + diffY ** 2);
-
-    if (distance < nekoSpeed || distance < 48) {
-      idle();
-      return;
-    }
-
-    idleAnimation = null;
-    idleAnimationFrame = 0;
-
-    if (idleTime > 1) {
-      setSprite('alert', 0);
-      // count down after being alerted before moving
-      idleTime = Math.min(idleTime, 7);
-      idleTime -= 1;
-      return;
-    }
-
-    let direction;
-    direction = diffY / distance > 0.5 ? 'N' : '';
-    direction += diffY / distance < -0.5 ? 'S' : '';
-    direction += diffX / distance > 0.5 ? 'W' : '';
-    direction += diffX / distance < -0.5 ? 'E' : '';
-    setSprite(direction, frameCount);
-
-    nekoPosX -= (diffX / distance) * nekoSpeed;
-    nekoPosY -= (diffY / distance) * nekoSpeed;
-
-    nekoPosX = Math.min(Math.max(16, nekoPosX), window.innerWidth - 16);
-    nekoPosY = Math.min(Math.max(16, nekoPosY), window.innerHeight - 16);
-
-    nekoEl.style.left = `${nekoPosX - 16}px`;
-    nekoEl.style.top = `${nekoPosY - 16}px`;
-  }
-
-  init();
-})();
-    
-
-    
+    // ========== UNICODE ICON REPLACER (abbreviated – copy full from previous) ==========
     // ========== 1) UNICODE ICON REPLACER ==========
     (function() {
       const REPLACEMENT_MAP = [
@@ -615,100 +320,82 @@
       }
     })();
 
-    // ========== 2) TYPEWRITER + INTERSECTION OBSERVER + REDUCED MOTION ==========
+    // ========== TYPEWRITER & OBSERVER ==========
     (function() {
-      const text = "Latest updates from our community";
-      const el = document.getElementById('typewriter-news');
-      let i = 0;
-      function type() {
-        if (i < text.length) {
-          el.innerHTML += text.charAt(i);
-          i++;
-          setTimeout(type, 60);
-        }
-      }
-      type();
-
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) entry.target.classList.add('visible');
-        });
-      }, { threshold: 0.1 });
-
-      window.observeNewsCards = function() {
-        document.querySelectorAll('.news-card').forEach(card => observer.observe(card));
-      };
-
-      if (
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
-        !('IntersectionObserver' in window) ||
-        location.search.includes("lowgraphics")
-      ) {
-        document.body.classList.add("reduced");
-        const banner = document.createElement("div");
-        banner.className = "performance-banner";
-        banner.innerText = "⚡ Low graphics mode activated to improve performance.";
-        document.body.prepend(banner);
+      const text = "Utilities and tools for Minecraft Bedrock";
+      const el = document.getElementById('typewriter-tools');
+      let i=0; function type(){ if(i<text.length){el.innerHTML+=text[i];i++;setTimeout(type,60);} } type();
+      const obs = new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible');})},{threshold:0.1});
+      window.observeToolCards = () => document.querySelectorAll('.tool-card').forEach(c=>obs.observe(c));
+      if(matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window) || location.search.includes('lowgraphics')){
+        document.body.classList.add('reduced');
+        const b=document.createElement('div'); b.className='performance-banner';
+        b.innerText='⚡ Low graphics mode activated.'; document.body.prepend(b);
       }
     })();
 
-// ========== 3) LOAD NEWS FROM JSON ==========
-window.addEventListener('DOMContentLoaded', function() {
-  const container = document.getElementById('news-container');
-  
-  // Show loading state
-  container.innerHTML = '<p style="color:#aaa; text-align:center; padding:40px;">Loading news...</p>';
+    // ========== PLATFORM SVG ICONS ==========
+    const platformIcons = {
+      windows: '<svg viewBox="0 0 24 24"><path d="M3 5.25L10 4.5v6.75H3V5.25zm0 13.5L10 19.5v-6.75H3v6.75zM11 4.5l10-1.5v9h-10v-7.5zm0 15l10 1.5v-9h-10v7.5z"/></svg>',
+      mac: '<svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.33.02-1.77-.8-3.29-.8-1.53 0-2 .78-3.27.82-1.35.05-2.37-1.34-3.22-2.58-1.76-2.58-3.1-7.28-.04-10.45 1.45-1.5 3.36-2.36 5.31-2.38 1.42-.02 2.76.97 3.63.97.86 0 2.47-1.2 4.16-1.02.71.06 2.69.29 3.96 2.16-.1.06-2.37 1.4-2.34 4 .03 3.17 2.76 4.23 2.79 4.24-.02.06-.44 1.5-1.44 2.96-.58.85-1.19 1.71-2.06 1.69-1.15-.03-1.48-.74-2.77-.74-1.3 0-1.69.74-2.75.76-1.16.02-1.94-1-2.62-1.84z"/><path d="M15.5 1c.25 1.5-.39 3-1.07 4.03-.75 1.13-2.04 2-3.09 1.93-.3-1.46.41-3 1.08-3.97.78-1.15 2.1-2.02 3.08-1.99z"/></svg>',
+      ios: '<svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.33.02-1.77-.8-3.29-.8-1.53 0-2 .78-3.27.82-1.35.05-2.37-1.34-3.22-2.58C4.12 16.83 2.78 12.13 5.84 8.96c1.45-1.5 3.36-2.36 5.31-2.38 1.42-.02 2.76.97 3.63.97.86 0 2.47-1.2 4.16-1.02.71.06 2.69.29 3.96 2.16-.1.06-2.37 1.4-2.34 4 .03 3.17 2.76 4.23 2.79 4.24-.02.06-.44 1.5-1.44 2.96-.58.85-1.19 1.71-2.06 1.69-1.15-.03-1.48-.74-2.77-.74-1.3 0-1.69.74-2.75.76-1.16.02-1.94-1-2.62-1.84z"/><path d="M15.5 1c.25 1.5-.39 3-1.07 4.03-.75 1.13-2.04 2-3.09 1.93-.3-1.46.41-3 1.08-3.97.78-1.15 2.1-2.02 3.08-1.99z"/></svg>', // Apple/iOS style (similar to mac)
+      universal: '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>' // globe or universal symbol (placeholder)
+    };
+    // Better universal icon (globe)
+    platformIcons.universal = '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>';
 
-  // Fetch the JSON file (adjust path if needed, e.g., 'news-assets/news.json')
-  fetch('./news.json')
-    .then(response => {
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      return response.json();
-    })
-    .then(newsItems => {
-      // Clear loading message
-      container.innerHTML = '';
-      
-      if (!Array.isArray(newsItems) || newsItems.length === 0) {
-        container.innerHTML = '<p style="color:#aaa;">No news articles found.</p>';
-        return;
-      }
+    // ========== LOAD TOOLS WITH PLATFORM BUTTONS ==========
+    window.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('tools-container');
+      container.innerHTML = '<p style="color:#aaa; text-align:center; padding:40px; grid-column:1/-1;">Loading tools...</p>';
 
-      // Populate news cards
-      newsItems.forEach(item => {
-        const card = document.createElement('article');
-        card.className = 'news-card';
-        card.innerHTML = `
-          <h3>${item.title || 'Untitled'}</h3>
-          <div class="date">${item.date || 'Recent'}</div>
-          <p>${item.content || ''}</p>
-        `;
-        container.appendChild(card);
-      });
+      fetch('./tools.json')
+        .then(r => r.ok ? r.json() : Promise.reject(`HTTP ${r.status}`))
+        .then(data => {
+          container.innerHTML = '';
+          const tools = data.tools || [];
+          if (!tools.length) { container.innerHTML = '<p style="color:#aaa; grid-column:1/-1;">No tools available.</p>'; return; }
 
-      // Observe the new cards for fade-in animation
-      if (window.observeNewsCards) window.observeNewsCards();
-    })
-    .catch(error => {
-      console.warn('Failed to load news.json, using fallback content:', error);
-      
+          tools.forEach(tool => {
+            const card = document.createElement('div'); card.className = 'tool-card';
+            
+            // Build platform buttons
+            let buttonsHtml = '';
+            if (tool.downloads && Array.isArray(tool.downloads)) {
+              tool.downloads.forEach(dl => {
+                const platform = dl.platform.toLowerCase();
+                const iconSvg = platformIcons[platform] || platformIcons.universal;
+                const label = platform.charAt(0).toUpperCase() + platform.slice(1);
+                buttonsHtml += `
+                  <a class="platform-btn" href="${dl.url}" target="_blank" rel="noopener">
+                    ${iconSvg} <span>${label}</span>
+                  </a>
+                `;
+              });
+            } else {
+              // Fallback if no downloads array
+              buttonsHtml = '<span style="color:#888; font-size:0.8rem;">No downloads</span>';
+            }
 
-      
-      container.innerHTML = '';
-      fallbackNews.forEach(item => {
-        const card = document.createElement('article');
-        card.className = 'news-card';
-        card.innerHTML = `
-          <h3>${item.title}</h3>
-          <div class="date">${item.date}</div>
-          <p>${item.content}</p>
-        `;
-        container.appendChild(card);
-      });
-      
-      if (window.observeNewsCards) window.observeNewsCards();
+            card.innerHTML = `
+              <div class="tool-icon">
+                <img src="${tool.icon}" alt="${tool.name}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\' viewBox=\'0 0 100 100\'%3E%3Crect width=\'100\' height=\'100\' fill=\'%23111\'/%3E%3Ctext x=\'50%25\' y=\'55%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%23888\' font-size=\'14\' font-family=\'monospace\'%3E🛠️%3C/text%3E%3C/svg%3E'">
+              </div>
+              <h3 class="tool-name">${tool.name}</h3>
+              <div class="tool-credit">${tool.credit}</div>
+              <div class="platform-buttons">
+                ${buttonsHtml}
+              </div>
+            `;
+            container.appendChild(card);
+          });
+          if (window.observeToolCards) window.observeToolCards();
+        })
+        .catch(err => {
+          console.warn('Failed to load tools.json:', err);
+          container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px; color:#aaa;"><p>⚠️ Unable to load tools.</p><p style="font-size:0.9rem;">${err}</p></div>`;
+        });
     });
-});
   </script>
 </body>
 </html>
