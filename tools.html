@@ -487,36 +487,90 @@
     })();
 
     // ========== LOAD TOOLS FROM JSON (WITH DOWNLOAD BUTTON) ==========
-    window.addEventListener('DOMContentLoaded', () => {
-      const container = document.getElementById('tools-container');
-      container.innerHTML = '<p style="color:#aaa; text-align:center; padding:40px; grid-column:1/-1;">Loading tools...</p>';
+// Platform SVG Icons
+const platformIcons = {
+  windows: '<svg viewBox="0 0 24 24" width="16" height="16"><path d="M3 5.25L10 4.5v6.75H3V5.25zm0 13.5L10 19.5v-6.75H3v6.75zM11 4.5l10-1.5v9h-10v-7.5zm0 15l10 1.5v-9h-10v7.5z" fill="currentColor"/></svg>',
+  mac: '<svg viewBox="0 0 24 24" width="16" height="16"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.33.02-1.77-.8-3.29-.8-1.53 0-2 .78-3.27.82-1.35.05-2.37-1.34-3.22-2.58-1.76-2.58-3.1-7.28-.04-10.45 1.45-1.5 3.36-2.36 5.31-2.38 1.42-.02 2.76.97 3.63.97.86 0 2.47-1.2 4.16-1.02.71.06 2.69.29 3.96 2.16-.1.06-2.37 1.4-2.34 4 .03 3.17 2.76 4.23 2.79 4.24-.02.06-.44 1.5-1.44 2.96-.58.85-1.19 1.71-2.06 1.69-1.15-.03-1.48-.74-2.77-.74-1.3 0-1.69.74-2.75.76-1.16.02-1.94-1-2.62-1.84z"/><path d="M15.5 1c.25 1.5-.39 3-1.07 4.03-.75 1.13-2.04 2-3.09 1.93-.3-1.46.41-3 1.08-3.97.78-1.15 2.1-2.02 3.08-1.99z" fill="currentColor"/></svg>',
+  ios: '<svg viewBox="0 0 24 24" width="16" height="16"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.33.02-1.77-.8-3.29-.8-1.53 0-2 .78-3.27.82-1.35.05-2.37-1.34-3.22-2.58C4.12 16.83 2.78 12.13 5.84 8.96c1.45-1.5 3.36-2.36 5.31-2.38 1.42-.02 2.76.97 3.63.97.86 0 2.47-1.2 4.16-1.02.71.06 2.69.29 3.96 2.16-.1.06-2.37 1.4-2.34 4 .03 3.17 2.76 4.23 2.79 4.24-.02.06-.44 1.5-1.44 2.96-.58.85-1.19 1.71-2.06 1.69-1.15-.03-1.48-.74-2.77-.74-1.3 0-1.69.74-2.75.76-1.16.02-1.94-1-2.62-1.84z"/><path d="M15.5 1c.25 1.5-.39 3-1.07 4.03-.75 1.13-2.04 2-3.09 1.93-.3-1.46.41-3 1.08-3.97.78-1.15 2.1-2.02 3.08-1.99z" fill="currentColor"/></svg>',
+  universal: '<svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" fill="currentColor"/></svg>'
+};
 
-      fetch('./tools.json')
-        .then(r => r.ok ? r.json() : Promise.reject(`HTTP ${r.status}`))
-        .then(data => {
-          container.innerHTML = '';
-          const tools = data.tools || [];
-          if (!tools.length) { container.innerHTML = '<p style="color:#aaa; grid-column:1/-1;">No tools available.</p>'; return; }
+// Intersection Observer for fade-in animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.1 });
 
-          tools.forEach(tool => {
-            const card = document.createElement('div'); card.className = 'tool-card';
-            card.innerHTML = `
-              <div class="tool-icon">
-                <img src="${tool.icon}" alt="${tool.name}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\' viewBox=\'0 0 100 100\'%3E%3Crect width=\'100\' height=\'100\' fill=\'%23111\'/%3E%3Ctext x=\'50%25\' y=\'55%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%23888\' font-size=\'14\' font-family=\'monospace\'%3E🛠️%3C/text%3E%3C/svg%3E'">
-              </div>
-              <h3 class="tool-name">${tool.name}</h3>
-              <div class="tool-credit">${tool.credit}</div>
-              <a class="download-btn" href="${tool.url || '#'}" ${tool.url ? 'target="_blank" rel="noopener"' : ''}>⬇ Download / Open</a>
+function observeToolCards() {
+  document.querySelectorAll('.tool-card').forEach(card => observer.observe(card));
+}
+
+// Load tools from JSON
+window.addEventListener('DOMContentLoaded', () => {
+  const container = document.getElementById('tools-container');
+  container.innerHTML = '<p style="color:#aaa; text-align:center; padding:40px; grid-column:1/-1;">Loading tools...</p>';
+
+  fetch('./tools.json')
+    .then(response => {
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return response.json();
+    })
+    .then(data => {
+      container.innerHTML = '';
+      const tools = data.tools || [];
+      
+      if (tools.length === 0) {
+        container.innerHTML = '<p style="color:#aaa; grid-column:1/-1;">No tools available.</p>';
+        return;
+      }
+
+      tools.forEach(tool => {
+        const card = document.createElement('div');
+        card.className = 'tool-card';
+        
+        // Build platform buttons
+        let buttonsHtml = '';
+        if (tool.downloads && Array.isArray(tool.downloads)) {
+          tool.downloads.forEach(dl => {
+            const platform = dl.platform.toLowerCase();
+            const iconSvg = platformIcons[platform] || platformIcons.universal;
+            const label = platform.charAt(0).toUpperCase() + platform.slice(1);
+            buttonsHtml += `
+              <a class="platform-btn" href="${dl.url}" target="_blank" rel="noopener">
+                ${iconSvg} <span>${label}</span>
+              </a>
             `;
-            container.appendChild(card);
           });
-          if (window.observeToolCards) window.observeToolCards();
-        })
-        .catch(err => {
-          console.warn('Failed to load tools.json:', err);
-          container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px; color:#aaa;"><p>⚠️ Unable to load tools.</p><p style="font-size:0.9rem;">${err}</p></div>`;
-        });
+        } else {
+          buttonsHtml = '<span style="color:#888; font-size:0.8rem;">No downloads</span>';
+        }
+
+        card.innerHTML = `
+          <div class="tool-icon">
+            <img src="${tool.icon}" alt="${tool.name}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\' viewBox=\'0 0 100 100\'%3E%3Crect width=\'100\' height=\'100\' fill=\'%23111\'/%3E%3Ctext x=\'50%25\' y=\'55%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%23888\' font-size=\'14\' font-family=\'monospace\'%3E🛠️%3C/text%3E%3C/svg%3E'">
+          </div>
+          <h3 class="tool-name">${tool.name}</h3>
+          <div class="tool-credit">${tool.credit}</div>
+          <div class="platform-buttons">
+            ${buttonsHtml}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      observeToolCards();
+    })
+    .catch(error => {
+      console.warn('Failed to load tools.json:', error);
+      container.innerHTML = `
+        <div style="grid-column:1/-1; text-align:center; padding:40px; color:#aaa;">
+          <p>⚠️ Unable to load tools.</p>
+          <p style="font-size:0.9rem;">${error.message}</p>
+        </div>
+      `;
     });
+});
   </script>
 </body>
 </html>
