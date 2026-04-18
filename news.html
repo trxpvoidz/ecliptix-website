@@ -359,30 +359,50 @@
       }
     })();
 
-    // ========== 3) LOAD NEWS CONTENT ==========
-    window.addEventListener('DOMContentLoaded', function() {
-      const container = document.getElementById('news-container');
-      
-      const sampleNews = [
-        {
-          title: "🎉 Ecliptix Launches New Website",
-          date: "April 10, 2026",
-          content: "We're excited to announce the launch of our redesigned website! Explore tools, skinpacks, and connect with the community."
-        },
-        {
-          title: "🛠️ Tool Update: Skin Converter v2.0",
-          date: "April 5, 2026",
-          content: "The skin converter now supports Bedrock 1.21+ formats with improved texture mapping. Try it out in the Tools section."
-        },
-        {
-          title: "📦 New Skinpack: Neon Horizon",
-          date: "March 28, 2026",
-          content: "Check out our latest community skinpack featuring 15 futuristic skins. Available now in the Skinpacks section."
-        }
-      ];
+// ========== 3) LOAD NEWS FROM JSON ==========
+window.addEventListener('DOMContentLoaded', function() {
+  const container = document.getElementById('news-container');
+  
+  // Show loading state
+  container.innerHTML = '<p style="color:#aaa; text-align:center; padding:40px;">Loading news...</p>';
 
+  // Fetch the JSON file (adjust path if needed, e.g., 'news-assets/news.json')
+  fetch('./news.json')
+    .then(response => {
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return response.json();
+    })
+    .then(newsItems => {
+      // Clear loading message
       container.innerHTML = '';
-      sampleNews.forEach(item => {
+      
+      if (!Array.isArray(newsItems) || newsItems.length === 0) {
+        container.innerHTML = '<p style="color:#aaa;">No news articles found.</p>';
+        return;
+      }
+
+      // Populate news cards
+      newsItems.forEach(item => {
+        const card = document.createElement('article');
+        card.className = 'news-card';
+        card.innerHTML = `
+          <h3>${item.title || 'Untitled'}</h3>
+          <div class="date">${item.date || 'Recent'}</div>
+          <p>${item.content || ''}</p>
+        `;
+        container.appendChild(card);
+      });
+
+      // Observe the new cards for fade-in animation
+      if (window.observeNewsCards) window.observeNewsCards();
+    })
+    .catch(error => {
+      console.warn('Failed to load news.json, using fallback content:', error);
+      
+
+      
+      container.innerHTML = '';
+      fallbackNews.forEach(item => {
         const card = document.createElement('article');
         card.className = 'news-card';
         card.innerHTML = `
@@ -392,9 +412,10 @@
         `;
         container.appendChild(card);
       });
-
+      
       if (window.observeNewsCards) window.observeNewsCards();
     });
+});
   </script>
 </body>
 </html>
