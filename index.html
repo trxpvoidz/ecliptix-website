@@ -1,48 +1,734 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
+<html>
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Ecliptix Animated Site</title>
-<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ecliptix</title>
+
+  <style>
+    body {
+  font-family: system-ui, sans-serif;
+  padding: 24px;
+  margin: 0;
+  background: rgb(0, 0, 0);
+}
+
+/* ✅ FIXED: Flex goes on the container, not the links */
+.link-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;   /* forces all children (links) to the left edge */
+  text-align: left;
+}
+
+.link-stack a {
+  /* ✅ FIXED: Remove flex, use block display for proper underline width */
+  display: block;            /* or inline-block; block ensures full width of container */
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 1.2rem;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  transition: text-shadow 0.2s ease;
+  margin-bottom: 8px;        /* optional spacing between stacked links */
+}
+
+/* White glow on hover */
+.link-stack a:hover {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.9),
+               0 0 18px rgba(255, 255, 255, 0.5);
+}
+
+/* Gradient underline */
+.link-stack a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #ffffff, #c0c0c0, #888888);
+  background-size: 200% 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.link-stack a:hover::after {
+  transform: scaleX(1);
+}
+
+.link-stack a:focus-visible {
+  outline: 2px solid #a0c0ff;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* Logo left alignment (optional, already left by default) */
+.Logo {
+  width: 100px;
+  height: auto;            /* ✅ FIXED: inherit → auto, prevents weird stretching */
+  display: block;
+  margin-bottom: 16px;      /* adds space below logo */
+}
+
+/* Oneko (unchanged) */
+#oneko {
+  background-image: url('https://raw.githubusercontent.com/trxpvoidz/Oneko-Custom/refs/heads/main/Untitled248_20260330213042_2.gif') !important;
+}
+
+.unicode-icon:hover {
+  filter: drop-shadow(0 0 10px gold) drop-shadow(0 0 18px orange);
+  transform: scale(1.05);
+  transition: all 0.2s ease;
+}
+
+/* Glow effect when hovering over the link (parent element) */
+.link-stack a:hover .unicode-icon {
+  filter: drop-shadow(0 0 10px var(--icon-color))
+          drop-shadow(0 0 18px var(--icon-color));
+  transition: filter 0.2s ease;
+}
+
+/* Optional: scale slightly on hover for extra feedback */
+.link-stack a:hover .unicode-icon {
+  transform: scale(1.05);
+}
+
+
+
+
+
+  </style>
+
+  
 </head>
 <body>
-<nav>
-  <a onclick="showPage('home')">Home</a>
-  <a onclick="showPage('about')">About Us</a>
-  <a onclick="showPage('preview')">Preview</a>
-  <a href="news.html">News</a>
-</nav>
-<div id="home-page" class="page">
-  <header class="centered">
-    <h1 class="glow gradient-text">Ecliptix</h1>
-    <p class="subtitle" id="typewriter"></p>
-  </header>
-  <main>
-    <section><h2>Our Mission</h2><p>We make well-made skin packs/capes, help new creators, and maintain a kind community with supportive staff!</p></section>
-    <section><h2>Services</h2><p>Helping people make skins, building skinpacks, and offering tools for creators.</p></section>
-    <section><h2>Our Discord Server</h2><p><a href="https://discord.gg/3x3M289anm" target="_blank">Join our Discord</a></p></section>
-    <section><h2>Our Socials</h2>
-      <p><a href="https://www.youtube.com/@Ecliptix_MCBE" target="_blank">Youtube: Ecliptix_MCBE</a></p>
-      <p><a href="https://guns.lol/trxpvoidz" target="_blank">Founder Bio: guns.lol/trxpvoidz</a></p>
-      <p><a href="https://guns.lol/Ecliptix" target="_blank">Main Page: guns.lol/Ecliptix</a></p>
-    </section>
-  </main>
+  
+<div class="link-stack">
+  <img class="Logo" src="https://images-ext-1.discordapp.net/external/84fbWfiyqiXx4Ugxax_gWztPXURFRclpAADhwfAUXJo/%3Fsize%3D4096/https/cdn.discordapp.com/icons/1199902285296320582/1c76804b7752220d85459e5c9bc69b95.png" alt="Description of the image">
+  <a href="/tools">🛠️ Tools</a>
+  <a href="/skinpacks"> Skinpacks</a>
+  <a href="https://bedrock-marketplace-archives.vercel.app/">🗄️ Archives</a>
+  <a href="/about"> About</a>
+  <a href="https://discord.gg/3x3M289anm"> Discord</a>
+  <a href="/game.html"> Game</a>
 </div>
-<div id="about-page" class="page" style="display:none;">
-  <header class="centered"><h1 class="glow gradient-text">About Us</h1><p class="subtitle" id="typewriter-about"></p></header>
-  <main><section><h2>Our Story</h2><p>We started Ecliptix to create a supportive space for skin creators. From humble beginnings, we’ve grown into a thriving community.</p></section>
-  <section><h2>Our Values</h2><p>Creativity, support, and quality. We strive to uplift artists and bring their visions to Minecraft.</p></section></main>
-</div>
-<div id="preview-page" class="page" style="display:none;">
-  <header class="centered"><h1 class="glow gradient-text">Preview</h1><p class="subtitle" id="typewriter-preview"></p></header>
-  <main><section><h2>Coming Soon</h2><p>New themed skin packs, unique capes, and tools for creators are on the horizon. Stay tuned!</p></section></main>
-</div>
-<footer>&copy; 2025 Ecliptix. All rights reserved.</footer>
-<script src="script.js"></script>
-<script src="oneko.js" data-cat="oneko.png"></script>
-<script src="cursor-effects.js"></script>
+
+
+  <script>
+(function oneko() {
+  const isReducedMotion =
+    window.matchMedia(`(prefers-reduced-motion: reduce)`) === true ||
+    window.matchMedia(`(prefers-reduced-motion: reduce)`).matches === true;
+
+  if (isReducedMotion) return;
+
+  const nekoEl = document.createElement('div');
+  let persistPosition = true;
+
+  let nekoPosX = 32;
+  let nekoPosY = 32;
+
+  let mousePosX = 0;
+  let mousePosY = 0;
+
+  let frameCount = 0;
+  let idleTime = 0;
+  let idleAnimation = null;
+  let idleAnimationFrame = 0;
+
+  const nekoSpeed = 10;
+  const spriteSets = {
+    idle: [[-3, -3]],
+    alert: [[-7, -3]],
+    scratchSelf: [
+      [-5, 0],
+      [-6, 0],
+      [-7, 0],
+    ],
+    scratchWallN: [
+      [0, 0],
+      [0, -1],
+    ],
+    scratchWallS: [
+      [-7, -1],
+      [-6, -2],
+    ],
+    scratchWallE: [
+      [-2, -2],
+      [-2, -3],
+    ],
+    scratchWallW: [
+      [-4, 0],
+      [-4, -1],
+    ],
+    tired: [[-3, -2]],
+    sleeping: [
+      [-2, 0],
+      [-2, -1],
+    ],
+    N: [
+      [-1, -2],
+      [-1, -3],
+    ],
+    NE: [
+      [0, -2],
+      [0, -3],
+    ],
+    E: [
+      [-3, 0],
+      [-3, -1],
+    ],
+    SE: [
+      [-5, -1],
+      [-5, -2],
+    ],
+    S: [
+      [-6, -3],
+      [-7, -2],
+    ],
+    SW: [
+      [-5, -3],
+      [-6, -1],
+    ],
+    W: [
+      [-4, -2],
+      [-4, -3],
+    ],
+    NW: [
+      [-1, 0],
+      [-1, -1],
+    ],
+  };
+
+  function init() {
+    let nekoFile = './oneko.gif';
+    const curScript = document.currentScript;
+    if (curScript && curScript.dataset.cat) {
+      nekoFile = curScript.dataset.cat;
+    }
+    if (curScript && curScript.dataset.persistPosition) {
+      if (curScript.dataset.persistPosition === '') {
+        persistPosition = true;
+      } else {
+        persistPosition = JSON.parse(
+          curScript.dataset.persistPosition.toLowerCase(),
+        );
+      }
+    }
+
+    if (persistPosition) {
+      let storedNeko = JSON.parse(window.localStorage.getItem('oneko'));
+      if (storedNeko !== null) {
+        nekoPosX = storedNeko.nekoPosX;
+        nekoPosY = storedNeko.nekoPosY;
+        mousePosX = storedNeko.mousePosX;
+        mousePosY = storedNeko.mousePosY;
+        frameCount = storedNeko.frameCount;
+        idleTime = storedNeko.idleTime;
+        idleAnimation = storedNeko.idleAnimation;
+        idleAnimationFrame = storedNeko.idleAnimationFrame;
+        nekoEl.style.backgroundPosition = storedNeko.bgPos;
+      }
+    }
+
+    nekoEl.id = 'oneko';
+    nekoEl.ariaHidden = true;
+    nekoEl.style.width = '32px';
+    nekoEl.style.height = '32px';
+    nekoEl.style.position = 'fixed';
+    nekoEl.style.pointerEvents = 'none';
+    nekoEl.style.imageRendering = 'pixelated';
+    nekoEl.style.left = `${nekoPosX - 16}px`;
+    nekoEl.style.top = `${nekoPosY - 16}px`;
+    nekoEl.style.zIndex = 2147483647;
+
+    nekoEl.style.backgroundImage = `url(${nekoFile})`;
+
+    document.body.appendChild(nekoEl);
+
+    document.addEventListener('mousemove', function (event) {
+      mousePosX = event.clientX;
+      mousePosY = event.clientY;
+    });
+
+    if (persistPosition) {
+      window.addEventListener('beforeunload', function (event) {
+        window.localStorage.setItem(
+          'oneko',
+          JSON.stringify({
+            nekoPosX: nekoPosX,
+            nekoPosY: nekoPosY,
+            mousePosX: mousePosX,
+            mousePosY: mousePosY,
+            frameCount: frameCount,
+            idleTime: idleTime,
+            idleAnimation: idleAnimation,
+            idleAnimationFrame: idleAnimationFrame,
+            bgPos: nekoEl.style.backgroundPosition,
+          }),
+        );
+      });
+    }
+
+    window.requestAnimationFrame(onAnimationFrame);
+  }
+
+  let lastFrameTimestamp;
+
+  function onAnimationFrame(timestamp) {
+    // Stops execution if the neko element is removed from DOM
+    if (!nekoEl.isConnected) {
+      return;
+    }
+    if (!lastFrameTimestamp) {
+      lastFrameTimestamp = timestamp;
+    }
+    if (timestamp - lastFrameTimestamp > 100) {
+      lastFrameTimestamp = timestamp;
+      frame();
+    }
+    window.requestAnimationFrame(onAnimationFrame);
+  }
+
+  function setSprite(name, frame) {
+    const sprite = spriteSets[name][frame % spriteSets[name].length];
+    nekoEl.style.backgroundPosition = `${sprite[0] * 32}px ${sprite[1] * 32}px`;
+  }
+
+  function resetIdleAnimation() {
+    idleAnimation = null;
+    idleAnimationFrame = 0;
+  }
+
+  function idle() {
+    idleTime += 1;
+
+    // every ~ 20 seconds
+    if (
+      idleTime > 10 &&
+      Math.floor(Math.random() * 200) == 0 &&
+      idleAnimation == null
+    ) {
+      let avalibleIdleAnimations = ['sleeping', 'scratchSelf'];
+      if (nekoPosX < 32) {
+        avalibleIdleAnimations.push('scratchWallW');
+      }
+      if (nekoPosY < 32) {
+        avalibleIdleAnimations.push('scratchWallN');
+      }
+      if (nekoPosX > window.innerWidth - 32) {
+        avalibleIdleAnimations.push('scratchWallE');
+      }
+      if (nekoPosY > window.innerHeight - 32) {
+        avalibleIdleAnimations.push('scratchWallS');
+      }
+      idleAnimation =
+        avalibleIdleAnimations[
+          Math.floor(Math.random() * avalibleIdleAnimations.length)
+        ];
+    }
+
+    switch (idleAnimation) {
+      case 'sleeping':
+        if (idleAnimationFrame < 8) {
+          setSprite('tired', 0);
+          break;
+        }
+        setSprite('sleeping', Math.floor(idleAnimationFrame / 4));
+        if (idleAnimationFrame > 192) {
+          resetIdleAnimation();
+        }
+        break;
+      case 'scratchWallN':
+      case 'scratchWallS':
+      case 'scratchWallE':
+      case 'scratchWallW':
+      case 'scratchSelf':
+        setSprite(idleAnimation, idleAnimationFrame);
+        if (idleAnimationFrame > 9) {
+          resetIdleAnimation();
+        }
+        break;
+      default:
+        setSprite('idle', 0);
+        return;
+    }
+    idleAnimationFrame += 1;
+  }
+
+  function frame() {
+    frameCount += 1;
+    const diffX = nekoPosX - mousePosX;
+    const diffY = nekoPosY - mousePosY;
+    const distance = Math.sqrt(diffX ** 2 + diffY ** 2);
+
+    if (distance < nekoSpeed || distance < 48) {
+      idle();
+      return;
+    }
+
+    idleAnimation = null;
+    idleAnimationFrame = 0;
+
+    if (idleTime > 1) {
+      setSprite('alert', 0);
+      // count down after being alerted before moving
+      idleTime = Math.min(idleTime, 7);
+      idleTime -= 1;
+      return;
+    }
+
+    let direction;
+    direction = diffY / distance > 0.5 ? 'N' : '';
+    direction += diffY / distance < -0.5 ? 'S' : '';
+    direction += diffX / distance > 0.5 ? 'W' : '';
+    direction += diffX / distance < -0.5 ? 'E' : '';
+    setSprite(direction, frameCount);
+
+    nekoPosX -= (diffX / distance) * nekoSpeed;
+    nekoPosY -= (diffY / distance) * nekoSpeed;
+
+    nekoPosX = Math.min(Math.max(16, nekoPosX), window.innerWidth - 16);
+    nekoPosY = Math.min(Math.max(16, nekoPosY), window.innerHeight - 16);
+
+    nekoEl.style.left = `${nekoPosX - 16}px`;
+    nekoEl.style.top = `${nekoPosY - 16}px`;
+  }
+
+  init();
+})();
+
+
+(function() {
+  // --- Inject terminal CSS ---
+  const style = document.createElement('style');
+  style.textContent = `
+    .real-terminal {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: #0a0a0a; z-index: 10000;
+      font-family: 'Courier New', monospace; color: #ffffff;
+      padding: 30px 25px; transition: opacity 0.8s ease;
+      overflow-y: auto; overflow-x: auto;
+      text-shadow: 0 0 4px rgba(255,255,255,0.6), 0 0 8px rgba(255,255,255,0.3);
+      box-shadow: inset 0 0 40px rgba(255,255,255,0.05), 0 0 20px rgba(255,255,255,0.1);
+    }
+    .terminal-output { white-space: pre; }
+    .line { margin: 0; line-height: 1.5; font-size: 14px; white-space: pre; }
+    .prompt, .command, .output { white-space: pre; }
+    .prompt { color: #fff; font-weight: bold; text-shadow: 0 0 6px rgba(255,255,255,0.8); }
+    .output { color: #eeeeee; margin-bottom: 8px; }
+    .real-terminal::before {
+      content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: repeating-linear-gradient(0deg, rgba(0,0,0,0.1) 0px, rgba(0,0,0,0.1) 2px, transparent 2px, transparent 6px);
+      pointer-events: none; z-index: 10001;
+    }
+  `;
+  document.head.appendChild(style);
+
+  // --- Create terminal DOM ---
+  const terminal = document.createElement('div');
+  terminal.className = 'real-terminal';
+  const outputDiv = document.createElement('div');
+  outputDiv.className = 'terminal-output';
+  terminal.appendChild(outputDiv);
+  document.body.appendChild(terminal);
+  const terminalDiv = outputDiv;
+
+  const mainContent = document.getElementById('mainContent');
+
+  // --- ASCII art (your custom) ---
+  const customAscii = `                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+                      @@@@              @@@@@                               
+                    @@#  .@@@         @@%.  %@@                             
+                    @@#     %@@     @@#     %@@                             
+                 @@@+       %@@     @@#       #@@                           
+                 @@@+         #@@ @@+         #@@                           
+               @@%.           #@@@@@+           +@@@                        
+               @@%.  %#                     %#  +@@@                        
+               @@%.    +%.               .@+    +@@@                        
+               @@%.      .@+           +%.      +@@@                        
+               @@%.    +%.               .@+    +@@@                        
+               @@%.  %#                     %#  +@@@                        
+               @@%.         %#  +@.  ##         +@@@                        
+                 @@@+         #%  .%+         #@@                           
+                    @@#                     %@@                             
+                      @@@@@@@#       #@@@@@@@                               
+                           @@#       #@@                                    
+                        @@@+           +@@                                  
+                      @@%.               .@@@                               
+                    @@#                     %@@                             
+             @@@@@@ @@#                     %@@@@@@@@@                      
+           @@+    .@@@#         +@.         %@@%     #@@                    
+        @@@.         %@@%.      +@.      .@@@#         +@@@                 
+        @@@.           +%.      +@.      .@+           +@@@                 
+        @@@@@@@#       +%.      +@.      .@+      .%@@@@@@@@@@@@@@@@        
+       @@@@.           +%.    #@@@@@+    .@+           +@.         %@       
+       @@@@@@@@@@@@@@@@@@@@@@@@@@ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@`;
+
+  const commands = [
+    { cmd: "neofetch", output: customAscii + `
+    user@terminal
+    -------------
+    OS: Linux 6.1.0-custom
+    Shell: bash 5.2.15
+    CPU: AMD Ryzen 7 (8) @ 3.2GHz
+    Memory: 15420MiB / 16384MiB
+    Terminal: xterm-256color` },
+    { cmd: "whoami", output: "Trxpvoidz" },
+    { cmd: "pwd", output: "/home/Trxpvoidz" },
+    { cmd: "ls -la", output: "total 32\ndrwxr-xr-x  2 user user 4096 Apr 16 12:00 .\ndrwxr-xr-x  4 root root 4096 Apr 16 11:59 ..\n-rw-r--r--  1 user user  220 Apr 16 12:00 .bashrc\n-rw-r--r--  1 user user  807 Apr 16 12:00 .profile" },
+    { cmd: "systemctl status", output: "● System is ready\n   Active: active (running) since Thu 2026-04-16 12:00:01 UTC\n   Main PID: 1 (systemd)\n   Tasks: 124" },
+    { cmd: "echo 'Welcome, Trxpvoidz.'", output: "Welcome, Trxpvoidz." },
+    { cmd: "glow --version", output: "glow effect v2.3.7" }
+  ];
+
+  let cmdIndex = 0;
+  let typingTimeout = null;
+
+  function addLine(text, className = 'output') {
+    const line = document.createElement('div');
+    line.className = `line ${className}`;
+    line.textContent = text;
+    terminalDiv.appendChild(line);
+    line.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function typeCommand(cmdText, callback) {
+    const lineContainer = document.createElement('div');
+    lineContainer.className = 'line';
+    const promptSpan = document.createElement('span');
+    promptSpan.className = 'prompt';
+    promptSpan.textContent = 'user@terminal:~$ ';
+    const cmdSpan = document.createElement('span');
+    cmdSpan.className = 'command';
+    lineContainer.appendChild(promptSpan);
+    lineContainer.appendChild(cmdSpan);
+    terminalDiv.appendChild(lineContainer);
+    let i = 0;
+    function typeChar() {
+      if (i < cmdText.length) {
+        cmdSpan.textContent += cmdText[i];
+        i++;
+        lineContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        typingTimeout = setTimeout(typeChar, 40);
+      } else {
+        callback();
+      }
+    }
+    typeChar();
+  }
+
+  function runCommand(index) {
+    if (index >= commands.length) {
+      addLine("");
+      addLine("[System ready. Launching interface.]", "output");
+      setTimeout(() => {
+        terminal.style.opacity = '0';
+        setTimeout(() => {
+          terminal.remove();
+          if (mainContent) {
+            mainContent.style.display = 'flex';
+            setTimeout(() => { mainContent.style.opacity = '1'; }, 50);
+          }
+        }, 800);
+      }, 1200);
+      return;
+    }
+    const cmdObj = commands[index];
+    typeCommand(cmdObj.cmd, () => {
+      setTimeout(() => {
+        if (cmdObj.output) {
+          cmdObj.output.split('\n').forEach(line => {
+            if (line.trim() !== "") addLine(line, 'output');
+          });
+        }
+        addLine("", 'output');
+        setTimeout(() => runCommand(index + 1), 300);
+      }, 200);
+    });
+  }
+
+  function startTerminal() {
+    if (mainContent) mainContent.style.display = 'none';
+    terminalDiv.innerHTML = '';
+    addLine("Linux 6.1.0-custom (tty1)", 'output');
+    addLine("terminal login: Trxpvoidz", 'output');
+    addLine("Last login: Thu Apr 16 12:00:01 UTC 2026 on tty1", 'output');
+    addLine("");
+    runCommand(0);
+  }
+
+  window.addEventListener('DOMContentLoaded', startTerminal);
+})();
+
+
+/**
+ * Unicode Icon Replacer – Glows with Icon's Own Color on Parent Link Hover
+ * 
+ * CONFIGURATION:
+ *   [ 'CHARACTER', 'SVG_STRING_OR_URL', 'COLOR' ]
+ * 
+ *   - CHARACTER: Unicode to replace (e.g., '🏠')
+ *   - SVG: Inline SVG or image URL
+ *   - COLOR: Fill color (hex, rgb, named, 'currentColor')
+ */
+
+const REPLACEMENT_MAP = [
+  // [ 'CHARACTER', 'SVG_STRING_OR_URL', 'COLOR' ]
+  ['🛠️', '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M102.8 57.3C108.2 51.9 116.6 51.1 123 55.3L241.9 134.5C250.8 140.4 256.1 150.4 256.1 161.1L256.1 210.7L346.9 301.5C380.2 286.5 420.8 292.6 448.1 320L574.2 446.1C592.9 464.8 592.9 495.2 574.2 514L514.1 574.1C495.4 592.8 465 592.8 446.2 574.1L320.1 448C292.7 420.6 286.6 380.1 301.6 346.8L210.8 256L161.2 256C150.5 256 140.5 250.7 134.6 241.8L55.4 122.9C51.2 116.6 52 108.1 57.4 102.7L102.8 57.3zM247.8 360.8C241.5 397.7 250.1 436.7 274 468L179.1 563C151 591.1 105.4 591.1 77.3 563C49.2 534.9 49.2 489.3 77.3 461.2L212.7 325.7L247.9 360.8zM416.1 64C436.2 64 455.5 67.7 473.2 74.5C483.2 78.3 485 91 477.5 98.6L420.8 155.3C417.8 158.3 416.1 162.4 416.1 166.6L416.1 208C416.1 216.8 423.3 224 432.1 224L473.5 224C477.7 224 481.8 222.3 484.8 219.3L541.5 162.6C549.1 155.1 561.8 156.9 565.6 166.9C572.4 184.6 576.1 203.9 576.1 224C576.1 267.2 558.9 306.3 531.1 335.1L482 286C448.9 253 403.5 240.3 360.9 247.6L304.1 190.8L304.1 161.1L303.9 156.1C303.1 143.7 299.5 131.8 293.4 121.2C322.8 86.2 366.8 64 416.1 63.9z"/></svg>', '#ffffff'],
+  ['🗄️', '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M64 128C64 110.3 78.3 96 96 96L544 96C561.7 96 576 110.3 576 128L576 160C576 177.7 561.7 192 544 192L96 192C78.3 192 64 177.7 64 160L64 128zM96 240L544 240L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 240zM248 304C234.7 304 224 314.7 224 328C224 341.3 234.7 352 248 352L392 352C405.3 352 416 341.3 416 328C416 314.7 405.3 304 392 304L248 304z"/></svg>', '#ffffff'],
+  ['', '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M524.5 133.8C524.3 133.5 524.1 133.2 523.7 133.1C485.6 115.6 445.3 103.1 404 96C403.6 95.9 403.2 96 402.9 96.1C402.6 96.2 402.3 96.5 402.1 96.9C396.6 106.8 391.6 117.1 387.2 127.5C342.6 120.7 297.3 120.7 252.8 127.5C248.3 117 243.3 106.8 237.7 96.9C237.5 96.6 237.2 96.3 236.9 96.1C236.6 95.9 236.2 95.9 235.8 95.9C194.5 103 154.2 115.5 116.1 133C115.8 133.1 115.5 133.4 115.3 133.7C39.1 247.5 18.2 358.6 28.4 468.2C28.4 468.5 28.5 468.7 28.6 469C28.7 469.3 28.9 469.4 29.1 469.6C73.5 502.5 123.1 527.6 175.9 543.8C176.3 543.9 176.7 543.9 177 543.8C177.3 543.7 177.7 543.4 177.9 543.1C189.2 527.7 199.3 511.3 207.9 494.3C208 494.1 208.1 493.8 208.1 493.5C208.1 493.2 208.1 493 208 492.7C207.9 492.4 207.8 492.2 207.6 492.1C207.4 492 207.2 491.8 206.9 491.7C191.1 485.6 175.7 478.3 161 469.8C160.7 469.6 160.5 469.4 160.3 469.2C160.1 469 160 468.6 160 468.3C160 468 160 467.7 160.2 467.4C160.4 467.1 160.5 466.9 160.8 466.7C163.9 464.4 167 462 169.9 459.6C170.2 459.4 170.5 459.2 170.8 459.2C171.1 459.2 171.5 459.2 171.8 459.3C268 503.2 372.2 503.2 467.3 459.3C467.6 459.2 468 459.1 468.3 459.1C468.6 459.1 469 459.3 469.2 459.5C472.1 461.9 475.2 464.4 478.3 466.7C478.5 466.9 478.7 467.1 478.9 467.4C479.1 467.7 479.1 468 479.1 468.3C479.1 468.6 479 468.9 478.8 469.2C478.6 469.5 478.4 469.7 478.2 469.8C463.5 478.4 448.2 485.7 432.3 491.6C432.1 491.7 431.8 491.8 431.6 492C431.4 492.2 431.3 492.4 431.2 492.7C431.1 493 431.1 493.2 431.1 493.5C431.1 493.8 431.2 494 431.3 494.3C440.1 511.3 450.1 527.6 461.3 543.1C461.5 543.4 461.9 543.7 462.2 543.8C462.5 543.9 463 543.9 463.3 543.8C516.2 527.6 565.9 502.5 610.4 469.6C610.6 469.4 610.8 469.2 610.9 469C611 468.8 611.1 468.5 611.1 468.2C623.4 341.4 590.6 231.3 524.2 133.7zM222.5 401.5C193.5 401.5 169.7 374.9 169.7 342.3C169.7 309.7 193.1 283.1 222.5 283.1C252.2 283.1 275.8 309.9 275.3 342.3C275.3 375 251.9 401.5 222.5 401.5zM417.9 401.5C388.9 401.5 365.1 374.9 365.1 342.3C365.1 309.7 388.5 283.1 417.9 283.1C447.6 283.1 471.2 309.9 470.7 342.3C470.7 375 447.5 401.5 417.9 401.5z"/></svg>', '#7289DA'],
+  ['', '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576zM288 224C288 206.3 302.3 192 320 192C337.7 192 352 206.3 352 224C352 241.7 337.7 256 320 256C302.3 256 288 241.7 288 224zM280 288L328 288C341.3 288 352 298.7 352 312L352 400L360 400C373.3 400 384 410.7 384 424C384 437.3 373.3 448 360 448L280 448C266.7 448 256 437.3 256 424C256 410.7 266.7 400 280 400L304 400L304 336L280 336C266.7 336 256 325.3 256 312C256 298.7 266.7 288 280 288z"/></svg>', '#ffffff'],
+  ['','<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M128 512L512 512C547.3 512 576 483.3 576 448L576 208C576 172.7 547.3 144 512 144L362.7 144C355.8 144 349 141.8 343.5 137.6L305.1 108.8C294 100.5 280.5 96 266.7 96L128 96C92.7 96 64 124.7 64 160L64 448C64 483.3 92.7 512 128 512z"/></svg>', '#ffffff'],
+  ['', '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><!--!Font Awesome Free v7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.--><path d="M448 128C554 128 640 214 640 320C640 426 554 512 448 512L192 512C86 512 0 426 0 320C0 214 86 128 192 128L448 128zM192 240C178.7 240 168 250.7 168 264L168 296L136 296C122.7 296 112 306.7 112 320C112 333.3 122.7 344 136 344L168 344L168 376C168 389.3 178.7 400 192 400C205.3 400 216 389.3 216 376L216 344L248 344C261.3 344 272 333.3 272 320C272 306.7 261.3 296 248 296L216 296L216 264C216 250.7 205.3 240 192 240zM432 336C414.3 336 400 350.3 400 368C400 385.7 414.3 400 432 400C449.7 400 464 385.7 464 368C464 350.3 449.7 336 432 336zM496 240C478.3 240 464 254.3 464 272C464 289.7 478.3 304 496 304C513.7 304 528 289.7 528 272C528 254.3 513.7 240 496 240z"/></svg>', '#ffffff']
+  // Example using an external URL (will be fetched and then colored)
+  // ['★', 'https://example.com/star.svg', '#ffcc00'],
+];
+
+// -------------------- DO NOT EDIT BELOW --------------------
+
+(function() {
+  if (!REPLACEMENT_MAP.length) return;
+
+  // Base styles (no hover rules – that goes in your main CSS)
+  const baseStyle = document.createElement('style');
+  baseStyle.textContent = `
+    .unicode-icon {
+      display: inline-block;
+      width: 1.2em;
+      height: 1.2em;
+      vertical-align: middle;
+      --icon-color: currentColor; /* fallback */
+    }
+    .unicode-icon svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  `;
+  document.head.appendChild(baseStyle);
+
+  const charDataMap = new Map();
+  for (const [char, svgOrUrl, color] of REPLACEMENT_MAP) {
+    const isUrl = typeof svgOrUrl === 'string' && (svgOrUrl.startsWith('http') || svgOrUrl.startsWith('/') || svgOrUrl.startsWith('./'));
+    charDataMap.set(char, {
+      content: svgOrUrl,
+      isUrl: isUrl,
+      color: color || 'currentColor'
+    });
+  }
+
+  function createIconElement(data) {
+    const { content, isUrl, color } = data;
+    const wrapper = document.createElement('span');
+    wrapper.className = 'unicode-icon';
+    // Set the custom property to the icon's fill color
+    wrapper.style.setProperty('--icon-color', color);
+
+    if (isUrl) {
+      wrapper.setAttribute('data-svg-url', content);
+      wrapper.setAttribute('data-svg-color', color);
+      wrapper.textContent = ' ';
+      loadExternalSvg(wrapper, content, color);
+    } else {
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = content;
+      const svg = tempDiv.querySelector('svg');
+      if (svg) {
+        svg.style.fill = color;
+        svg.setAttribute('fill', color);
+        const shapes = svg.querySelectorAll('path, circle, rect, polygon, ellipse');
+        shapes.forEach(shape => shape.setAttribute('fill', color));
+      }
+      wrapper.appendChild(tempDiv.firstChild);
+    }
+
+    return wrapper;
+  }
+
+  function loadExternalSvg(wrapper, url, color) {
+    fetch(url)
+      .then(response => response.text())
+      .then(svgText => {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = svgText;
+        const svg = tempDiv.querySelector('svg');
+        if (svg) {
+          svg.style.fill = color;
+          svg.setAttribute('fill', color);
+          const shapes = svg.querySelectorAll('path, circle, rect, polygon, ellipse');
+          shapes.forEach(shape => shape.setAttribute('fill', color));
+          wrapper.innerHTML = '';
+          wrapper.appendChild(svg);
+        }
+      })
+      .catch(err => console.warn(`Failed to load SVG from ${url}`, err));
+  }
+
+  function processNode(node) {
+    if (node.nodeType === Node.ELEMENT_NODE) {
+      const tag = node.tagName;
+      if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'TEXTAREA' || tag === 'NOSCRIPT') return;
+    }
+
+    if (node.nodeType === Node.TEXT_NODE) {
+      const text = node.textContent;
+      let hasMatch = false;
+      for (const char of charDataMap.keys()) {
+        if (text.includes(char)) { hasMatch = true; break; }
+      }
+      if (!hasMatch) return;
+
+      const fragment = document.createDocumentFragment();
+      let remaining = text;
+
+      while (remaining.length) {
+        let earliest = Infinity, matchedChar = '';
+        for (const char of charDataMap.keys()) {
+          const idx = remaining.indexOf(char);
+          if (idx !== -1 && idx < earliest) { earliest = idx; matchedChar = char; }
+        }
+
+        if (earliest === Infinity) {
+          fragment.appendChild(document.createTextNode(remaining));
+          break;
+        }
+
+        if (earliest > 0) {
+          fragment.appendChild(document.createTextNode(remaining.slice(0, earliest)));
+        }
+
+        const data = charDataMap.get(matchedChar);
+        fragment.appendChild(createIconElement(data));
+        remaining = remaining.slice(earliest + matchedChar.length);
+      }
+
+      node.parentNode.replaceChild(fragment, node);
+      return;
+    }
+
+    for (const child of [...node.childNodes]) processNode(child);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => processNode(document.body));
+  } else {
+    processNode(document.body);
+  }
+})();
+  </script>
 </body>
 </html>
