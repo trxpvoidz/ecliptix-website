@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ecliptix Skinpacks</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ----- RESET & BASE ----- */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      color: #fff;
+      font-family: 'Raleway', sans-serif;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    #mainContent {
+      display: flex;
+      width: 100%;
+    }
+
+    /* ----- SIDEBAR ----- */
+    .sidebar {
+      width: 280px;
+      padding: 28px 20px;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      background: #050505;
+    }
+
+    /* ----- LINK STACK (exactly like index) ----- */
+    .link-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .Logo {
+      width: 100px;
+      height: auto;
+      display: block;
+      margin-bottom: 28px;
+      filter: drop-shadow(0 0 12px rgba(255,255,255,0.2));
+    }
+
+    .link-stack a {
+      display: block;
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 1.25rem;
+      color: #fff;
+      text-decoration: none;
+      cursor: pointer;
+      position: relative;
+      transition: text-shadow 0.2s ease;
+      margin-bottom: 12px;
+    }
+
+    .link-stack a:hover {
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.9),
+                   0 0 18px rgba(255, 255, 255, 0.5);
+    }
+
+    .link-stack a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, #ffffff, #c0c0c0, #888888);
+      background-size: 200% 100%;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .link-stack a:hover::after {
+      transform: scaleX(1);
+    }
+
+    /* icon glow on parent hover */
+    .link-stack a:hover .unicode-icon {
+      filter: drop-shadow(0 0 10px var(--icon-color))
+              drop-shadow(0 0 18px var(--icon-color));
+      transition: filter 0.2s ease;
+      transform: scale(1.05);
+    }
+
+    /* ----- MAIN PANEL (skinpacks area) ----- */
+    .main-panel {
+      flex: 1;
+      padding: 30px 40px;
+      overflow-y: auto;
+      max-height: 100vh;
+      background: radial-gradient(circle at 20% 30%, #0e0e0e, #000);
+    }
+
+    /* ----- SKINPACKS SPECIFIC STYLES (white/gray theme) ----- */
+    .centered {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .glow {
+      text-shadow: 0 0 15px rgba(255, 255, 255, 0.7), 0 0 30px rgba(211, 211, 211, 0.4);
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #ffffff, #b0b0b0);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+    .subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      min-height: 2em;
+      color: #ddd;
+      text-shadow: 0 0 8px rgba(255,255,255,0.3);
+    }
+    
+    /* Skinpack grid */
+    #skinpacks-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 24px;
+      margin-top: 20px;
+    }
+    
+    /* Skinpack card */
+    .pack-card {
+      background: #111;
+      border-radius: 12px;
+      border-left: 4px solid #888;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      transition: transform 0.2s, opacity 0.5s;
+      opacity: 0;
+      transform: translateY(10px);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .pack-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .pack-thumbnail {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      background: #1a1a1a;
+      border-bottom: 1px solid #333;
+    }
+    .pack-info {
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .pack-name {
+      margin: 0 0 8px 0;
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.1rem;
+      text-shadow: 0 0 6px rgba(255,255,255,0.3);
+      line-height: 1.4;
+    }
+    .pack-uuid {
+      color: #777;
+      font-size: 0.7rem;
+      margin-bottom: 12px;
+      word-break: break-all;
+      font-family: monospace;
+      opacity: 0.8;
+    }
+    .download-btn {
+      display: inline-block;
+      background: #2a2a2a;
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      text-align: center;
+      transition: all 0.2s;
+      border: 1px solid #444;
+      margin-top: auto;
+    }
+    .download-btn:hover {
+      background: #3a3a3a;
+      box-shadow: 0 0 12px rgba(255,255,255,0.2);
+      border-color: #888;
+    }
+    
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      opacity: 0.6;
+      font-size: 0.9rem;
+      border-top: 1px solid #333;
+      padding-top: 20px;
+      color: #aaa;
+    }
+
+    /* performance banner */
+    .performance-banner {
+      background: #222;
+      color: #ffd966;
+      padding: 8px 16px;
+      text-align: center;
+      font-size: 0.9rem;
+      border-bottom: 1px solid #444;
+    }
+
+    /* reduced motion */
+    body.reduced .glow,
+    body.reduced .link-stack a:hover,
+    body.reduced .pack-card h3 {
+      text-shadow: none;
+    }
+    body.reduced .pack-card {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    /* scrollbar */
+    .main-panel::-webkit-scrollbar {
+      width: 8px;
+    }
+    .main-panel::-webkit-scrollbar-track {
+      background: #111;
+    }
+    .main-panel::-webkit-scrollbar-thumb {
+      background: #555;
+      border-radius: 4px;
+    }
+
+    /* unicode icon base */
+    .unicode-icon {
+      display: inline-block;
+      width: 1.2em;
+      height: 1.2em;
+      vertical-align: middle;
+      --icon-color: currentColor;
+    }
+    .unicode-icon svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    #oneko {
+      background-image: url('https://raw.githubusercontent.com/trxpvoidz/Oneko-Custom/refs/heads/main/Untitled248_20260330213042_2.gif') !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="mainContent">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="link-stack">
+        <img class="Logo" src="https://images-ext-1.discordapp.net/external/84fbWfiyqiXx4Ugxax_gWztPXURFRclpAADhwfAUXJo/%3Fsize%3D4096/https/cdn.discordapp.com/icons/1199902285296320582/1c76804b7752220d85459e5c9bc69b95.png" alt="Ecliptix Logo">
+        <a href="/">🏠 Home</a>
+        <a href="/tools">🛠️ Tools</a>
+        <a href="/skinpacks"> Skinpacks</a>
+        <a href="https://bedrock-marketplace-archives.vercel.app/">🗄️ Archives</a>
+        <a href="/about"> About</a>
+        <a href="/news.html">📰 News</a>
+        <a href="https://discord.gg/3x3M289anm"> Discord</a>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL: SKINPACKS -->
+    <div class="main-panel">
+      <main>
+        <header class="centered">
+          <h1 class="glow gradient-text"> Skinpacks</h1>
+          <p class="subtitle" id="typewriter-skinpacks"></p>
+        </header>
+        <div id="skinpacks-container">
+          <!-- Packs will be loaded here -->
+        </div>
+      </main>
+      <footer>© 2025 Ecliptix. All rights reserved.</footer>
+    </div>
+  </div>
+
+  <script>
+    // ========== ONECO CAT (unchanged) ==========
+    (function oneko() {
+      const isReducedMotion =
+        window.matchMedia(`(prefers-reduced-motion: reduce)`) === true ||
+        window.matchMedia(`(prefers-reduced-motion: reduce)`).matches === true;
+
+      if (isReducedMotion) return;
+
+      const nekoEl = document.createElement('div');
+      let persistPosition = true;
+
+      let nekoPosX = 32;
+      let nekoPosY = 32;
+      let mousePosX = 0;
+      let mousePosY = 0;
+      let frameCount = 0;
+      let idleTime = 0;
+      let idleAnimation = null;
+      let idleAnimationFrame = 0;
+      const nekoSpeed = 10;
+      
+      const spriteSets = {
+        idle: [[-3, -3]],
+        alert: [[-7, -3]],
+        scratchSelf: [[-5, 0], [-6, 0], [-7, 0]],
+        scratchWallN: [[0, 0], [0, -1]],
+        scratchWallS: [[-7, -1], [-6, -2]],
+        scratchWallE: [[-2, -2], [-2, -3]],
+        scratchWallW: [[-4, 0], [-4, -1]],
+        tired: [[-3, -2]],
+        sleeping: [[-2, 0], [-2, -1]],
+        N: [[-1, -2], [-1, -3]],
+        NE: [[0, -2], [0, -3]],
+        E: [[-3, 0], [-3, -1]],
+        SE: [[-5, -1], [-5, -2]],
+        S: [[-6, -3], [-7, -2]],
+        SW: [[-5, -3], [-6, -1]],
+        W: [[-4, -2], [-4, -3]],
+        NW: [[-1, 0], [-1, -1]],
+      };
+
+      function init() {
+        let nekoFile = './oneko.gif';
+        const curScript = document.currentScript;
+        if (curScript && curScript.dataset.cat) nekoFile = curScript.dataset.cat;
+        
+        if (persistPosition) {
+          let storedNeko = JSON.parse(window.localStorage.getItem('oneko'));
+          if (storedNeko) {
+            nekoPosX = storedNeko.nekoPosX;
+            nekoPosY = storedNeko.nekoPosY;
+            mousePosX = storedNeko.mousePosX;
+            mousePosY = storedNeko.mousePosY;
+            frameCount = storedNeko.frameCount;
+            idleTime = storedNeko.idleTime;
+            idleAnimation = storedNeko.idleAnimation;
+            idleAnimationFrame = storedNeko.idleAnimationFrame;
+          }
+        }
+
+        nekoEl.id = 'oneko';
+        nekoEl.ariaHidden = true;
+        nekoEl.style.width = '32px';
+        nekoEl.style.height = '32px';
+        nekoEl.style.position = 'fixed';
+        nekoEl.style.pointerEvents = 'none';
+        nekoEl.style.imageRendering = 'pixelated';
+        nekoEl.style.left = `${nekoPosX - 16}px`;
+        nekoEl.style.top = `${nekoPosY - 16}px`;
+        nekoEl.style.zIndex = 2147483647;
+        nekoEl.style.backgroundImage = `url(${nekoFile})`;
+        document.body.appendChild(nekoEl);
+
+        document.addEventListener('mousemove', (event) => {
+          mousePosX = event.clientX;
+          mousePosY = event.clientY;
+        });
+
+        if (persistPosition) {
+          window.addEventListener('beforeunload', () => {
+            window.localStorage.setItem('oneko', JSON.stringify({
+              nekoPosX, nekoPosY, mousePosX, mousePosY,
+              frameCount, idleTime, idleAnimation, idleAnimationFrame,
+              bgPos: nekoEl.style.backgroundPosition,
+            }));
+          });
+        }
+        window.requestAnimationFrame(onAnimationFrame);
+      }
+
+      let lastFrameTimestamp;
+      function onAnimationFrame(timestamp) {
+        if (!nekoEl.isConnected) return;
+        if (!lastFrameTimestamp) lastFrameTimestamp = timestamp;
+        if (timestamp - lastFrameTimestamp > 100) {
+          lastFrameTimestamp = timestamp;
+          frame();
+        }
+        window.requestAnimationFrame(onAnimationFrame);
+      }
+
+      function setSprite(name, frame) {
+        const sprite = spriteSets[name][frame % spriteSets[name].length];
+        nekoEl.style.backgroundPosition = `${sprite[0] * 32}px ${sprite[1] * 32}px`;
+      }
+
+      function resetIdleAnimation() {
+        idleAnimation = null;
+        idleAnimationFrame = 0;
+      }
+
+      function idle() {
+        idleTime += 1;
+        if (idleTime > 10 && Math.floor(Math.random() * 200) == 0 && idleAnimation == null) {
+          let avalibleIdleAnimations = ['sleeping', 'scratchSelf'];
+          if (nekoPosX < 32) avalibleIdleAnimations.push('scratchWallW');
+          if (nekoPosY < 32) avalibleIdleAnimations.push('scratchWallN');
+          if (nekoPosX > window.innerWidth - 32) avalibleIdleAnimations.push('scratchWallE');
+          if (nekoPosY > window.innerHeight - 32) avalibleIdleAnimations.push('scratchWallS');
+          idleAnimation = avalibleIdleAnimations[Math.floor(Math.random() * avalibleIdleAnimations.length)];
+        }
+
+        switch (idleAnimation) {
+          case 'sleeping':
+            if (idleAnimationFrame < 8) setSprite('tired', 0);
+            else setSprite('sleeping', Math.floor(idleAnimationFrame / 4));
+            if (idleAnimationFrame > 192) resetIdleAnimation();
+            break;
+          case 'scratchWallN': case 'scratchWallS': case 'scratchWallE': case 'scratchWallW': case 'scratchSelf':
+            setSprite(idleAnimation, idleAnimationFrame);
+            if (idleAnimationFrame > 9) resetIdleAnimation();
+            break;
+          default:
+            setSprite('idle', 0);
+            return;
+        }
+        idleAnimationFrame += 1;
+      }
+
+      function frame() {
+        frameCount += 1;
+        const diffX = nekoPosX - mousePosX;
+        const diffY = nekoPosY - mousePosY;
+        const distance = Math.sqrt(diffX ** 2 + diffY ** 2);
+
+        if (distance < nekoSpeed || distance < 48) {
+          idle();
+          return;
+        }
+
+        idleAnimation = null;
+        idleAnimationFrame = 0;
+
+        if (idleTime > 1) {
+          setSprite('alert', 0);
+          idleTime = Math.min(idleTime, 7);
+          idleTime -= 1;
+          return;
+        }
+
+        let direction = '';
+        direction += diffY / distance > 0.5 ? 'N' : '';
+        direction += diffY / distance < -0.5 ? 'S' : '';
+        direction += diffX / distance > 0.5 ? 'W' : '';
+        direction += diffX / distance < -0.5 ? 'E' : '';
+        setSprite(direction, frameCount);
+
+        nekoPosX -= (diffX / distance) * nekoSpeed;
+        nekoPosY -= (diffY / distance) * nekoSpeed;
+        nekoPosX = Math.min(Math.max(16, nekoPosX), window.innerWidth - 16);
+        nekoPosY = Math.min(Math.max(16, nekoPosY), window.innerHeight - 16);
+
+        nekoEl.style.left = `${nekoPosX - 16}px`;
+        nekoEl.style.top = `${nekoPosY - 16}px`;
+      }
+
+      init();
+    })();
+
+    // ========== 1) UNICODE ICON REPLACER ==========
+    (function() {
+      const REPLACEMENT_MAP = [
+        ['🛠️', '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M102.8 57.3C108.2 51.9 116.6 51.1 123 55.3L241.9 134.5C250.8 140.4 256.1 150.4 256.1 161.1L256.1 210.7L346.9 301.5C380.2 286.5 420.8 292.6 448.1 320L574.2 446.1C592.9 464.8 592.9 495.2 574.2 514L514.1 574.1C495.4 592.8 465 592.8 446.2 574.1L320.1 448C292.7 420.6 286.6 380.1 301.6 346.8L210.8 256L161.2 256C150.5 256 140.5 250.7 134.6 241.8L55.4 122.9C51.2 116.6 52 108.1 57.4 102.7L102.8 57.3zM247.8 360.8C241.5 397.7 250.1 436.7 274 468L179.1 563C151 591.1 105.4 591.1 77.3 563C49.2 534.9 49.2 489.3 77.3 461.2L212.7 325.7L247.9 360.8zM416.1 64C436.2 64 455.5 67.7 473.2 74.5C483.2 78.3 485 91 477.5 98.6L420.8 155.3C417.8 158.3 416.1 162.4 416.1 166.6L416.1 208C416.1 216.8 423.3 224 432.1 224L473.5 224C477.7 224 481.8 222.3 484.8 219.3L541.5 162.6C549.1 155.1 561.8 156.9 565.6 166.9C572.4 184.6 576.1 203.9 576.1 224C576.1 267.2 558.9 306.3 531.1 335.1L482 286C448.9 253 403.5 240.3 360.9 247.6L304.1 190.8L304.1 161.1L303.9 156.1C303.1 143.7 299.5 131.8 293.4 121.2C322.8 86.2 366.8 64 416.1 63.9z"/></svg>', '#ffffff'],
+        ['🗄️', '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M64 128C64 110.3 78.3 96 96 96L544 96C561.7 96 576 110.3 576 128L576 160C576 177.7 561.7 192 544 192L96 192C78.3 192 64 177.7 64 160L64 128zM96 240L544 240L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 240zM248 304C234.7 304 224 314.7 224 328C224 341.3 234.7 352 248 352L392 352C405.3 352 416 341.3 416 328C416 314.7 405.3 304 392 304L248 304z"/></svg>', '#ffffff'],
+        ['', '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M524.5 133.8C524.3 133.5 524.1 133.2 523.7 133.1C485.6 115.6 445.3 103.1 404 96C403.6 95.9 403.2 96 402.9 96.1C402.6 96.2 402.3 96.5 402.1 96.9C396.6 106.8 391.6 117.1 387.2 127.5C342.6 120.7 297.3 120.7 252.8 127.5C248.3 117 243.3 106.8 237.7 96.9C237.5 96.6 237.2 96.3 236.9 96.1C236.6 95.9 236.2 95.9 235.8 95.9C194.5 103 154.2 115.5 116.1 133C115.8 133.1 115.5 133.4 115.3 133.7C39.1 247.5 18.2 358.6 28.4 468.2C28.4 468.5 28.5 468.7 28.6 469C28.7 469.3 28.9 469.4 29.1 469.6C73.5 502.5 123.1 527.6 175.9 543.8C176.3 543.9 176.7 543.9 177 543.8C177.3 543.7 177.7 543.4 177.9 543.1C189.2 527.7 199.3 511.3 207.9 494.3C208 494.1 208.1 493.8 208.1 493.5C208.1 493.2 208.1 493 208 492.7C207.9 492.4 207.8 492.2 207.6 492.1C207.4 492 207.2 491.8 206.9 491.7C191.1 485.6 175.7 478.3 161 469.8C160.7 469.6 160.5 469.4 160.3 469.2C160.1 469 160 468.6 160 468.3C160 468 160 467.7 160.2 467.4C160.4 467.1 160.5 466.9 160.8 466.7C163.9 464.4 167 462 169.9 459.6C170.2 459.4 170.5 459.2 170.8 459.2C171.1 459.2 171.5 459.2 171.8 459.3C268 503.2 372.2 503.2 467.3 459.3C467.6 459.2 468 459.1 468.3 459.1C468.6 459.1 469 459.3 469.2 459.5C472.1 461.9 475.2 464.4 478.3 466.7C478.5 466.9 478.7 467.1 478.9 467.4C479.1 467.7 479.1 468 479.1 468.3C479.1 468.6 479 468.9 478.8 469.2C478.6 469.5 478.4 469.7 478.2 469.8C463.5 478.4 448.2 485.7 432.3 491.6C432.1 491.7 431.8 491.8 431.6 492C431.4 492.2 431.3 492.4 431.2 492.7C431.1 493 431.1 493.2 431.1 493.5C431.1 493.8 431.2 494 431.3 494.3C440.1 511.3 450.1 527.6 461.3 543.1C461.5 543.4 461.9 543.7 462.2 543.8C462.5 543.9 463 543.9 463.3 543.8C516.2 527.6 565.9 502.5 610.4 469.6C610.6 469.4 610.8 469.2 610.9 469C611 468.8 611.1 468.5 611.1 468.2C623.4 341.4 590.6 231.3 524.2 133.7zM222.5 401.5C193.5 401.5 169.7 374.9 169.7 342.3C169.7 309.7 193.1 283.1 222.5 283.1C252.2 283.1 275.8 309.9 275.3 342.3C275.3 375 251.9 401.5 222.5 401.5zM417.9 401.5C388.9 401.5 365.1 374.9 365.1 342.3C365.1 309.7 388.5 283.1 417.9 283.1C447.6 283.1 471.2 309.9 470.7 342.3C470.7 375 447.5 401.5 417.9 401.5z"/></svg>', '#7289DA'],
+        ['', '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576zM288 224C288 206.3 302.3 192 320 192C337.7 192 352 206.3 352 224C352 241.7 337.7 256 320 256C302.3 256 288 241.7 288 224zM280 288L328 288C341.3 288 352 298.7 352 312L352 400L360 400C373.3 400 384 410.7 384 424C384 437.3 373.3 448 360 448L280 448C266.7 448 256 437.3 256 424C256 410.7 266.7 400 280 400L304 400L304 336L280 336C266.7 336 256 325.3 256 312C256 298.7 266.7 288 280 288z"/></svg>', '#ffffff'],
+        ['','<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M128 512L512 512C547.3 512 576 483.3 576 448L576 208C576 172.7 547.3 144 512 144L362.7 144C355.8 144 349 141.8 343.5 137.6L305.1 108.8C294 100.5 280.5 96 266.7 96L128 96C92.7 96 64 124.7 64 160L64 448C64 483.3 92.7 512 128 512z"/></svg>', '#ffffff'],
+        ['🏠', '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M341.8 72.6C329.5 61.2 310.5 61.2 298.3 72.6L74.3 280.6C64.7 289.6 61.5 303.5 66.3 315.7C71.1 327.9 82.8 336 96 336L112 336L112 512C112 547.3 140.7 576 176 576L464 576C499.3 576 528 547.3 528 512L528 336L544 336C557.2 336 569 327.9 573.8 315.7C578.6 303.5 575.4 289.5 565.8 280.6L341.8 72.6zM304 384L336 384C362.5 384 384 405.5 384 432L384 528L256 528L256 432C256 405.5 277.5 384 304 384z"/></svg>', '#ffffff'],
+        ['📰', '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M64 480L64 184C64 170.7 74.7 160 88 160C101.3 160 112 170.7 112 184L112 472C112 485.3 122.7 496 136 496C149.3 496 160 485.3 160 472L160 160C160 124.7 188.7 96 224 96L512 96C547.3 96 576 124.7 576 160L576 480C576 515.3 547.3 544 512 544L128 544C92.7 544 64 515.3 64 480zM224 192L224 256C224 273.7 238.3 288 256 288L320 288C337.7 288 352 273.7 352 256L352 192C352 174.3 337.7 160 320 160L256 160C238.3 160 224 174.3 224 192zM248 432C234.7 432 224 442.7 224 456C224 469.3 234.7 480 248 480L488 480C501.3 480 512 469.3 512 456C512 442.7 501.3 432 488 432L248 432zM224 360C224 373.3 234.7 384 248 384L488 384C501.3 384 512 373.3 512 360C512 346.7 501.3 336 488 336L248 336C234.7 336 224 346.7 224 360zM424 240C410.7 240 400 250.7 400 264C400 277.3 410.7 288 424 288L488 288C501.3 288 512 277.3 512 264C512 250.7 501.3 240 488 240L424 240z"/></svg>', '#ffffff']
+      ];
+
+      const charDataMap = new Map();
+      for (const [char, svg, color] of REPLACEMENT_MAP) {
+        charDataMap.set(char, { content: svg, color: color || 'currentColor' });
+      }
+
+      function createIconElement(data) {
+        const wrapper = document.createElement('span');
+        wrapper.className = 'unicode-icon';
+        wrapper.style.setProperty('--icon-color', data.color);
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = data.content;
+        const svg = tempDiv.querySelector('svg');
+        if (svg) {
+          svg.style.fill = data.color;
+          svg.setAttribute('fill', data.color);
+          svg.querySelectorAll('path, circle, rect, polygon, ellipse').forEach(s => s.setAttribute('fill', data.color));
+          wrapper.appendChild(svg);
+        }
+        return wrapper;
+      }
+
+      function processNode(node) {
+        if (node.nodeType === Node.ELEMENT_NODE && ['SCRIPT','STYLE','TEXTAREA','NOSCRIPT'].includes(node.tagName)) return;
+        if (node.nodeType === Node.TEXT_NODE) {
+          const text = node.textContent;
+          let hasMatch = false;
+          for (const char of charDataMap.keys()) if (text.includes(char)) { hasMatch = true; break; }
+          if (!hasMatch) return;
+          const fragment = document.createDocumentFragment();
+          let remaining = text;
+          while (remaining.length) {
+            let earliest = Infinity, matchedChar = '';
+            for (const char of charDataMap.keys()) {
+              const idx = remaining.indexOf(char);
+              if (idx !== -1 && idx < earliest) { earliest = idx; matchedChar = char; }
+            }
+            if (earliest === Infinity) {
+              fragment.appendChild(document.createTextNode(remaining));
+              break;
+            }
+            if (earliest > 0) fragment.appendChild(document.createTextNode(remaining.slice(0, earliest)));
+            fragment.appendChild(createIconElement(charDataMap.get(matchedChar)));
+            remaining = remaining.slice(earliest + matchedChar.length);
+          }
+          node.parentNode.replaceChild(fragment, node);
+          return;
+        }
+        for (const child of [...node.childNodes]) processNode(child);
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => processNode(document.body));
+      } else {
+        processNode(document.body);
+      }
+    })();
+
+    // ========== 2) TYPEWRITER + OBSERVER ==========
+    (function() {
+      const text = "Download the latest community skin packs";
+      const el = document.getElementById('typewriter-skinpacks');
+      let i = 0;
+      function type() {
+        if (i < text.length) {
+          el.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(type, 60);
+        }
+      }
+      type();
+
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.1 });
+
+      window.observePackCards = function() {
+        document.querySelectorAll('.pack-card').forEach(card => observer.observe(card));
+      };
+
+      if (
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+        !('IntersectionObserver' in window) ||
+        location.search.includes("lowgraphics")
+      ) {
+        document.body.classList.add("reduced");
+        const banner = document.createElement("div");
+        banner.className = "performance-banner";
+        banner.innerText = "⚡ Low graphics mode activated to improve performance.";
+        document.body.prepend(banner);
+      }
+    })();
+
+    // ========== 3) LOAD SKINPACKS FROM JSON ==========
+    window.addEventListener('DOMContentLoaded', function() {
+      const container = document.getElementById('skinpacks-container');
+      container.innerHTML = '<p style="color:#aaa; text-align:center; padding:40px;">Loading skin packs...</p>';
+
+      // Fetch the JSON file (adjust path if needed, e.g., '/skinpacks.json')
+      fetch('https://raw.githubusercontent.com/trxpvoidz/Skin-Pack-Store-Importer/refs/heads/main/store.json')
+        .then(response => {
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          return response.json();
+        })
+        .then(data => {
+          container.innerHTML = '';
+          const packs = data.packs || [];
+          
+          if (packs.length === 0) {
+            container.innerHTML = '<p style="color:#aaa;">No skin packs available.</p>';
+            return;
+          }
+
+          packs.forEach(pack => {
+            const card = document.createElement('div');
+            card.className = 'pack-card';
+            
+            card.innerHTML = `
+              <img class="pack-thumbnail" src="${pack.thumbnail}" alt="${pack.name}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\' viewBox=\'0 0 200 200\'%3E%3Crect width=\'200\' height=\'200\' fill=\'%23111\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%23888\' font-family=\'monospace\'%3ENo Image%3C/text%3E%3C/svg%3E'">
+              <div class="pack-info">
+                <h3 class="pack-name">${pack.name}</h3>
+                <div class="pack-uuid">${pack.uuid}</div>
+                <a class="download-btn" href="${pack.zip_url}" download>⬇ Download</a>
+              </div>
+            `;
+            container.appendChild(card);
+          });
+
+          if (window.observePackCards) window.observePackCards();
+        })
+        .catch(error => {
+          console.warn('Failed to load skinpacks.json:', error);
+          container.innerHTML = `
+            <div style="grid-column:1/-1; text-align:center; padding:40px; color:#aaa;">
+              <p>⚠️ Unable to load skin packs.</p>
+              <p style="font-size:0.9rem;">${error.message}</p>
+            </div>
+          `;
+        });
+    });
+  </script>
+</body>
+</html>
