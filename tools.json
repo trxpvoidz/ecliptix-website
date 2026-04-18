@@ -1,0 +1,22 @@
+{
+  "tools": [
+    {
+      "name": "Melancholy (outdated bugged legacy version)",
+      "icon": "https://github.com/trxpvoidz/Melancholy/raw/refs/heads/main/assets/icon.ico",
+      "credit": "TrxpVoidz & 4Quart",
+      "url": "https://example.com/tools/uuid"
+    },
+    {
+      "name": "SkinMaster (GDK)",
+      "icon": "https://raw.githubusercontent.com/a6wwp/packed/main/ZUAPrl8.png",
+      "credit": "A6wwp, xGG9",
+      "url": "https://github.com/a6wwp/packed/raw/refs/heads/main/SkinMaster.exe"
+    },
+    {
+      "name": "SkinMaster (UWP)",
+      "icon": "https://raw.githubusercontent.com/a6wwp/packed/main/ZUAPrl8.png",
+      "credit": "A6wwp, xGG9",
+      "url": "https://github.com/a6wwp/packed/raw/refs/heads/main/SkinMaster%20UWP.exe"
+    }
+  ]
+}
