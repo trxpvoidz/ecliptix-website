@@ -5,7 +5,7 @@
       "icon": "https://github.com/trxpvoidz/Melancholy/raw/refs/heads/main/assets/icon.ico",
       "credit": "TrxpVoidz & 4Quart",
       "downloads": [
-        { "platform": "windows", "url": "https://actual-download-link.com/melancholy.exe" }
+        { "platform": "Windows", "url": "https://actual-download-link.com/melancholy.exe" }
       ]
     },
     {
@@ -13,7 +13,7 @@
       "icon": "https://raw.githubusercontent.com/a6wwp/packed/main/ZUAPrl8.png",
       "credit": "A6wwp, xGG9",
       "downloads": [
-        { "platform": "windows", "url": "https://github.com/a6wwp/packed/raw/refs/heads/main/SkinMaster.exe" }
+        { "platform": "Windows", "url": "https://github.com/a6wwp/packed/raw/refs/heads/main/SkinMaster.exe" }
       ]
     },
     {
@@ -21,7 +21,15 @@
       "icon": "https://raw.githubusercontent.com/a6wwp/packed/main/ZUAPrl8.png",
       "credit": "A6wwp, xGG9",
       "downloads": [
-        { "platform": "windows", "url": "https://github.com/a6wwp/packed/raw/refs/heads/main/SkinMaster%20UWP.exe" }
+        { "platform": "Windows", "url": "https://github.com/a6wwp/packed/raw/refs/heads/main/SkinMaster%20UWP.exe" }
+      ]
+    },
+    {
+      "name": "Zankur0 (Mac OS edition)",
+      "icon": "https://raw.githubusercontent.com/a6wwp/packed/main/ZUAPrl8.png",
+      "credit": "Trxpvoidz",
+      "downloads": [
+        { "platform": "Mac", "url": "https://github.com/trxpvoidz/Zankur0-Mac-edition-/tree/main" }
       ]
     }
   ]
